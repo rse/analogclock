@@ -66,10 +66,10 @@ class AnalogClock {
             </div>
         `)
         $(this.el)
-            .css("width",  this.props.width)
-            .css("height", this.props.height)
-            .css("left",   this.props.x)
-            .css("top",    this.props.y)
+            .css("width",  `${this.props.width}px`)
+            .css("height", `${this.props.height}px`)
+            .css("left",   `${this.props.x}px`)
+            .css("top",    `${this.props.y}px`)
         this.elCanvas = $(".canvas",      this.el).get(0)
         this.elSVG    = $(".canvas .svg", this.el).get(0)
 
