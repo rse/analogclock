@@ -30,6 +30,7 @@ class AnalogClock {
             width:       520,
             height:      520,
             parent:      "body",
+            opacity:     0.8,
             background1: "#555555",
             background2: "#f0f0f0",
             ticks:       "#333333",
@@ -70,6 +71,7 @@ class AnalogClock {
             .css("height", `${this.props.height}px`)
             .css("left",   `${this.props.x}px`)
             .css("top",    `${this.props.y}px`)
+            .css("opacity", this.props.opacity)
         this.elCanvas = $(".canvas",      this.el).get(0)
         this.elSVG    = $(".canvas .svg", this.el).get(0)
 
