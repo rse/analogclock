@@ -1,0 +1,40 @@
+{
+    "name":                        "analogclock",
+    "version":                     "0.9.0",
+    "description":                 "Analog Clock for OBS Studio",
+    "main":                        "index.html",
+    "keywords":                    [ "analog", "clock", "obs", "studio" ],
+    "private":                     true,
+    "repository": {
+        "type":                    "git",
+        "url":                     "https://github.com/rse/analogclock.git"
+    },
+    "author": {
+        "name":                    "Dr. Ralf S. Engelschall",
+        "email":                   "rse@engelschall.com",
+        "url":                     "http://engelschall.com"
+    },
+    "license":                     "MIT",
+    "homepage":                    "https://github.com/rse/analogclock",
+    "bugs":                        "https://github.com/rse/analogclock/issues",
+    "dependencies": {
+        "jquery":                  "3.5.1",
+        "howler":                  "2.2.1",
+        "@rse/soundfx":            "1.1.1",
+        "@rse/soundlp":            "1.0.2",
+        "@svgdotjs/svg.js":        "3.0.16",
+        "@svgdotjs/svg.filter.js": "3.0.7",
+        "svg.easing.js":           "2.0.0",
+        "svg.screenbbox.js":       "0.1.2",
+        "svg.path.js":             "otm/svg.path.js#6981166",
+        "moment":                  "2.29.1",
+        "animejs":                 "3.2.1",
+        "typopro-web":             "4.2.5"
+    },
+    "devDependencies": {
+        "serve":                   "11.3.2"
+    },
+    "scripts": {
+        "test":                    "serve -l 12345 ."
+    }
+}
