@@ -37,7 +37,7 @@ class AnalogClock {
             digits:      "#666666",
             pointer1:    "#000000",
             pointer2:    "#222222",
-            pointer3:    "#cc3333",
+            pointer3:    "#cc0000",
             segment1:    "#b06820",
             segment2:    "#f4dbc2",
             segment3:    "#2068b0",
