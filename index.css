@@ -39,18 +39,15 @@ body {
 }
 
 .analogclock {
-    border: 1px solid blue;
 }
 
 .analogclock .canvas {
-    border: 1px solid red;
     position: relative;
     width:  100%;
     height: 100%;
 }
 
 .analogclock .canvas .svg {
-    border: 1px solid green;
     width:  100%;
     height: 100%;
 }
