@@ -148,7 +148,7 @@ class AnalogClock {
                 direction: "normal",
                 easing:    "easeOutBounce",
                 delay:     200,
-                bottom:    [ 1000, 0 ],
+                bottom:    [ 2000, 0 ],
                 opacity:   [ 1.0, 1.0 ]
             })
         }, 0)

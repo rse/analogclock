@@ -32,19 +32,25 @@ body {
     margin: 0;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .analogclock {
-    position: absolute;
+    border: 1px solid blue;
 }
 
 .analogclock .canvas {
+    border: 1px solid red;
     position: relative;
     width:  100%;
     height: 100%;
 }
 
 .analogclock .canvas .svg {
+    border: 1px solid green;
     width:  100%;
     height: 100%;
 }
