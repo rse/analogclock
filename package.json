@@ -1,9 +1,9 @@
 {
     "name":                        "analogclock",
     "version":                     "0.9.2",
-    "description":                 "Analog Clock for OBS Studio",
+    "description":                 "Analog Clock for OBS Studio or vMix",
     "main":                        "index.html",
-    "keywords":                    [ "analog", "clock", "obs", "studio" ],
+    "keywords":                    [ "analog", "clock", "obs", "studio", "vmix" ],
     "private":                     true,
     "repository": {
         "type":                    "git",
