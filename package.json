@@ -18,11 +18,5 @@
     "homepage":                    "https://github.com/rse/analogclock",
     "bugs":                        "https://github.com/rse/analogclock/issues",
     "dependencies": {
-    },
-    "devDependencies": {
-        "serve":                   "13.0.2"
-    },
-    "scripts": {
-        "test":                    "serve -l 12345 ."
     }
 }
