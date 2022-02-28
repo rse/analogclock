@@ -27,7 +27,6 @@ class AnalogClock {
         this.props = {
             width:       500,
             height:      500,
-            parent:      "body",
             opacity:     0.8,
             background1: "#555555",
             background2: "#f0f0f0",
@@ -71,7 +70,7 @@ class AnalogClock {
         this.elCanvas = $(".canvas",      this.el).get(0)
         this.elSVG    = $(".canvas .svg", this.el).get(0)
 
-        $(this.props.parent).append(this.el)
+        $("body").append(this.el)
     }
     start (options = {}) {
         let duration = 0
