@@ -184,7 +184,7 @@ class AnalogClock {
                     const t = g.text(digit)
                         .fill(this.props.digits)
                         .font({
-                            family: "TypoPRO Fira Sans",
+                            family: "Source Sans Pro",
                             anchor: "middle",
                             size:   (i / 5) % 3 === 0 ? 65 : 55,
                             weight: (i / 5) % 3 === 0 ? "bold" : "normal"
