@@ -8,9 +8,9 @@ Abstract
 --------
 
 **AnalogClock** is a plain HTML/CSS/JS Browser Source layer for [OBS
-Studio](http://obsproject.com/) for displaying a classical analog clock
-based timer. This is usually used as a count-down until an event starts
-or as a duration for a pause.
+Studio](http://obsproject.com/) or [vMix](https://www.vmix.com/) for
+displaying a classical analog clock based timer. This is usually used as
+a count-down until an event starts or as a duration for a pause.
 
 ![AnalogClock screenshot](screenshot.png)
 
@@ -26,17 +26,23 @@ Usage
 3. Download all dependencies:<br/>
    `$ npm install`
 
-4. Add your Browser Source to your scenes:
+4. Add your *Browser Source* source to *OBS Studio*:
 
    - Local File: **(disabled)**
    - URL: *local-path*`/analogclock/index.html?`*options*
-   - Width: **1280** (or whatever is your stream resolution width)
-   - Height: **720** (or whatever is your stream resolution height)
+   - Width: **1920** (or whatever is your stream resolution width)
+   - Height: **1080** (or whatever is your stream resolution height)
    - Use custom frame rate: **(disabled)**
    - Control audio via OBS: **(disabled)**
    - Custom CSS: **(empty)**
    - Shutdown source when not visible: **(enabled)**
    - Refresh browser when scene becomes active: **(enabled)**
+
+   Or add your *Web Browser* input to *vMix*:
+
+   - URL: `file://`*local-path*`/analogclock/index.html?`*options*
+   - Width: **1920** (or whatever is your stream resolution width)
+   - Height: **1080** (or whatever is your stream resolution height)
 
 License
 -------
