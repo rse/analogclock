@@ -300,11 +300,14 @@ $(document).ready(() => {
     const slp = new SoundLP({ basedir: "node_modules/@rse/soundlp" })
     const soundlp = new Howl({ ...slp.config(), volume: 0.40, preload: true })
 
+    /*  determine properties  */
     const props = { soundfx, soundlp }
     const params = (new URL(document.location)).searchParams
     for (const [ key, val ] of params)
         props[key] = val
     const ac = new AnalogClock(props)
+
+    /*  start clock  */
     ac.start(props)
 })
 
