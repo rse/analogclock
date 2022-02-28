@@ -71,19 +71,8 @@ class AnalogClock {
     }
     start (options = {}) {
         let duration = 0
-        if (options.duration !== undefined) {
-            duration = options.duration
-            if (typeof duration === "string") {
-                let m
-                if ((m = duration.match(/^(\d+)([hms])$/)) !== null) {
-                    let val  = parseInt(m[1])
-                    let unit = m[2]
-                    duration = moment.duration(val, unit).asSeconds()
-                }
-                else
-                    throw new Error("invalid duration")
-            }
-        }
+        if (options.duration !== undefined)
+            duration = moment.duration(parseInt(options.duration), "m").asSeconds()
         else if (options.until !== undefined)
             duration = moment.duration(moment(options.until).diff(moment())).asSeconds()
 
