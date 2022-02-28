@@ -25,10 +25,8 @@
 class AnalogClock {
     constructor (props = {}) {
         this.props = {
-            x:           380,
-            y:           100,
-            width:       520,
-            height:      520,
+            width:       500,
+            height:      500,
             parent:      "body",
             opacity:     0.8,
             background1: "#555555",
@@ -69,8 +67,6 @@ class AnalogClock {
         $(this.el)
             .css("width",  `${this.props.width}px`)
             .css("height", `${this.props.height}px`)
-            .css("left",   `${this.props.x}px`)
-            .css("top",    `${this.props.y}px`)
             .css("opacity", this.props.opacity)
         this.elCanvas = $(".canvas",      this.el).get(0)
         this.elSVG    = $(".canvas .svg", this.el).get(0)
