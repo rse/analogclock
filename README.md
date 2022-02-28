@@ -31,7 +31,7 @@ Usage
    - Local File: **(disabled)**
    - URL: *local-path*`/analogclock/index.html?`*options*
    - Width: **1280** (or whatever is your stream resolution width)
-   - Height: **720* (or whatever is your stream resolution height)
+   - Height: **720** (or whatever is your stream resolution height)
    - Use custom frame rate: **(disabled)**
    - Control audio via OBS: **(disabled)**
    - Custom CSS: **(empty)**
