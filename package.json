@@ -19,7 +19,6 @@
     "bugs":                        "https://github.com/rse/analogclock/issues",
     "dependencies": {
         "jquery":                  "3.6.0",
-        "howler":                  "2.2.3",
         "@svgdotjs/svg.js":        "3.1.2",
         "@svgdotjs/svg.filter.js": "3.0.8",
         "svg.easing.js":           "2.0.0",
