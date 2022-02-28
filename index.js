@@ -39,8 +39,6 @@ class AnalogClock {
             segment2:    "#f4dbc2",
             segment3:    "#2068b0",
             segment4:    "#c2dbf4",
-            soundfx:     null,
-            soundlp:     null,
             ...props
         }
 
@@ -53,7 +51,6 @@ class AnalogClock {
         this.ended      = false
         this.svg        = null
         this.svgRefs    = {}
-        this.soundid    = 0
 
         this.el = $(`
             <div class="analogclock">
@@ -112,8 +109,6 @@ class AnalogClock {
                     if (!this.ended) {
                         /*  end timer  */
                         this.ended = true
-                        if (this.soundfx)
-                            this.soundfx.play("scale1")
                         setTimeout(() => {
                             this.stop()
                         }, 5 * 1000)
@@ -126,16 +121,6 @@ class AnalogClock {
         /*  once render timer and fly it in  */
         setTimeout(() => {
             this.update()
-            if (this.soundfx)
-                this.soundfx.play("slide4")
-            if (this.soundlp) {
-                if (this.soundid)
-                    this.soundlp.stop(this.soundid)
-                this.soundid = this.soundlp.play("piano2")
-                this.soundlp.rate(0.8, this.soundid)
-                this.soundlp.volume(0.2, this.soundid)
-                this.soundlp.fade(0.0, 0.2, 5 * 1000, this.soundid)
-            }
             anime({
                 targets:   this.elCanvas,
                 duration:  1000,
@@ -150,17 +135,6 @@ class AnalogClock {
     }
     stop () {
         /*  fly timer out and stop updating  */
-        if (this.soundid) {
-            if (this.soundlp) {
-                soundlp.fade(0.2, 0.0, 2 * 1000, this.soundid)
-                soundlp.once("fade", () => {
-                    soundlp.stop(this.soundid)
-                    this.soundid = 0
-                }, this.soundid)
-            }
-            if (this.soundfx)
-                this.soundfx.play("whoosh2")
-        }
         anime({
             targets:   this.elCanvas,
             duration:  2000,
@@ -251,8 +225,6 @@ class AnalogClock {
 
         /*  perform minute ticks  */
         if (S === 0 && !this.ticked) {
-            if (this.soundfx)
-                this.soundfx.play("click5")
             this.ticked = true
             this.segNow = M
         }
@@ -287,16 +259,8 @@ class AnalogClock {
 }
 
 $(document).ready(() => {
-    /*  initialize sound effects  */
-    const sfx = new SoundFX({ basedir: "node_modules/@rse/soundfx" })
-    const soundfx = new Howl({ ...sfx.config(), volume: 0.20, preload: true })
-
-    /*  initialize sound loops  */
-    const slp = new SoundLP({ basedir: "node_modules/@rse/soundlp" })
-    const soundlp = new Howl({ ...slp.config(), volume: 0.40, preload: true })
-
     /*  determine properties  */
-    const props = { soundfx, soundlp }
+    const props = {}
     const params = (new URL(document.location)).searchParams
     for (const [ key, val ] of params)
         props[key] = val
