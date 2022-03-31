@@ -64,6 +64,10 @@ Options
 - **segment3**=*color* (outer color of todo segment display, default: `#2068b0`)
 - **segment4**=*color* (inner color of todo segment display, default: `#c2dbf4`)
 
+Hint: if either option `duration` or `until` are given, the clock with
+show a done/todo-segment and automatically shuts down once the ending
+time is reached.
+
 License
 -------
 
