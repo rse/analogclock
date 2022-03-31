@@ -130,7 +130,7 @@ class AnalogClock {
         /*  fly timer out and stop updating  */
         anime({
             targets:   this.elCanvas,
-            duration:  2000,
+            duration:  1000,
             autoplay:  true,
             direction: "normal",
             easing:    "easeInSine",
