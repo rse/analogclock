@@ -78,8 +78,8 @@ class AnalogClock {
         let duration = 0
         if (options.duration !== undefined) {
             duration = moment.duration(parseInt(options.duration), "m").asSeconds()
-            if (duration > 60)
-                duration = 60
+            if (duration > (60 * 60))
+                duration = (60 * 60)
         }
         else if (options.until !== undefined) {
             duration = moment.duration(moment(options.until).diff(moment())).asSeconds()
@@ -96,6 +96,8 @@ class AnalogClock {
             const now = Math.floor((new Date()).getTime() / 1000)
             this.started   = now
             this.ending    = now + duration
+            if (options.fraction !== undefined)
+                this.ending = Math.round(this.ending / (5 * 60)) * (5 * 60)
             this.ended     = false
             this.segFrom   = (this.started / 60) % 60
             this.segNow    = this.segFrom
