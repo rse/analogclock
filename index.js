@@ -104,9 +104,7 @@ class AnalogClock {
                     if (!this.ended) {
                         /*  end timer  */
                         this.ended = true
-                        setTimeout(() => {
-                            this.stop()
-                        }, 5 * 1000)
+                        this.stop()
                     }
                 }
             }
@@ -218,8 +216,8 @@ class AnalogClock {
         this.svgRefs.p2.untransform().rotate((360 / 60) * M        + (360 / 60) / 60   * S,  R, R)
         this.svgRefs.p3.untransform().rotate((360 / 60) * S        + (360 / 60) / 1000 * MS, R, R)
 
-        /*  redraw minute segments  */
-        if (this.segFrom) {
+        /*  redraw clock segment  */
+        if (this.segFrom && !this.ended) {
             this.segNow = M + (1 / 60) * S
             const deg1 = (360 / 60) * this.segFrom
             const deg2 = (360 / 60) * this.segNow
@@ -242,6 +240,12 @@ class AnalogClock {
             makeSegment(this.svgRefs.segment2, rad1, rad2, max12, b, this.props.segment2)
             makeSegment(this.svgRefs.segment3, rad2, rad3, max23, 0, this.props.segment3)
             makeSegment(this.svgRefs.segment4, rad2, rad3, max23, b, this.props.segment4)
+        }
+        else if (this.segFrom && this.ended) {
+            this.svgRefs.segment1.clear()
+            this.svgRefs.segment2.clear()
+            this.svgRefs.segment3.clear()
+            this.svgRefs.segment3.clear()
         }
     }
 }
