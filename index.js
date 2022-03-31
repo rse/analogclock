@@ -76,8 +76,11 @@ class AnalogClock {
     start (options = {}) {
         /*  determine duration  */
         let duration = 0
-        if (options.duration !== undefined)
+        if (options.duration !== undefined) {
             duration = moment.duration(parseInt(options.duration), "m").asSeconds()
+            if (duration > 60)
+                duration = 60
+        }
         else if (options.until !== undefined) {
             duration = moment.duration(moment(options.until).diff(moment())).asSeconds()
             if (duration < 0)
