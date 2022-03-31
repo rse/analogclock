@@ -82,18 +82,18 @@ class AnalogClock {
 
         /*  determine the duration-related information  */
         if (duration > 0) {
-            this.started   = Math.floor((new Date()).getTime() / 1000)
+            this.started   = Math.round((new Date()).getTime() / 1000)
             this.ending    = this.started + duration
             this.ended     = false
-            this.segFrom   = Math.floor(this.started / 60) % 60
+            this.segFrom   = Math.round(this.started / 60) % 60
             this.segNow    = this.segFrom
-            this.segTo     = Math.floor(this.ending / 60) % 60
+            this.segTo     = Math.round(this.ending / 60) % 60
         }
 
         /*  setup an update interval  */
         this.timer = setInterval(() => {
             if (duration > 0) {
-                const now = Math.floor((new Date()).getTime() / 1000)
+                const now = Math.round((new Date()).getTime() / 1000)
                 if (now >= this.ending) {
                     if (!this.ended) {
                         /*  end timer  */
