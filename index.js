@@ -22,8 +22,10 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*  the clock knowledge encapsulation  */
 class AnalogClock {
     constructor (props = {}) {
+        /*  take over properties  */
         this.props = {
             width:       500,
             height:      500,
@@ -42,6 +44,7 @@ class AnalogClock {
             ...props
         }
 
+        /*  initialize internal state  */
         this.duration   = 0
         this.remaining  = 0
         this.started    = null
@@ -52,6 +55,7 @@ class AnalogClock {
         this.svg        = null
         this.svgRefs    = {}
 
+        /*  create DOM fragment  */
         this.el = $(`
             <div class="analogclock">
                 <div class="canvas">
@@ -67,9 +71,11 @@ class AnalogClock {
         this.elCanvas = $(".canvas",      this.el).get(0)
         this.elSVG    = $(".canvas .svg", this.el).get(0)
 
+        /*  inject DOM fragment into DOM tree  */
         $("body").append(this.el)
     }
     start (options = {}) {
+        /*  determine duration  */
         let duration = 0
         if (options.duration !== undefined)
             duration = moment.duration(parseInt(options.duration), "m").asSeconds()
@@ -247,6 +253,7 @@ class AnalogClock {
     }
 }
 
+/*  render a single instance of the clock  */
 $(document).ready(() => {
     /*  determine properties  */
     const props = {}
