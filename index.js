@@ -97,7 +97,7 @@ class AnalogClock {
             this.started   = now
             this.ending    = now + duration
             if (options.fraction !== undefined)
-                this.ending = Math.round(this.ending / (5 * 60)) * (5 * 60)
+                this.ending = Math.ceil(this.ending / (5 * 60)) * (5 * 60)
             this.ended     = false
             this.segFrom   = (this.started / 60) % 60
             this.segNow    = this.segFrom
