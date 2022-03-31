@@ -47,7 +47,7 @@ Usage
 Options
 -------
 
-- **duration**=*minutes* (duration for segment display in minutes, default: none)
+- **duration**=*minutes* (duration for segment display in 1-60 minutes, default: none)
 - **until**=*iso-time* (duration for segment display until time in ISO format `YYYY-MM-DDTHH:MM:SS`, default: none)
 - **width**=*pixels* (width of clock in pixels, default: `500`)
 - **height**=*pixels* (height of clock in pixels, default: `500`)
