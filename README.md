@@ -47,11 +47,24 @@ Usage
 Options
 -------
 
-- **duration**=*minutes* (duration for segment display in 1-60 minutes, default: none)
+### Time Options
+
 - **until**=*iso-time* (duration for segment display until time in ISO format `YYYY-MM-DDTHH:MM:SS`, default: none)
+- **duration**=*minutes* (duration for segment display in 1-60 minutes, default: none)
+- **fraction**=*minutes* (fraction in minutes to round up duration, default: none)
+
+Hint: if either option `duration` or `until` are given, the clock with
+show a done/todo-segment and automatically shuts down once the ending
+time is reached.
+
+### Size Options
+
 - **width**=*pixels* (width of clock in pixels, default: `500`)
 - **height**=*pixels* (height of clock in pixels, default: `500`)
 - **opacity**=*number* (amount of opacity of clock in 0.0-1.0 range, default: `0.8`)
+
+### Color Options
+
 - **background1**=*color* (outer border color, default: `#555555`)
 - **background2**=*color* (inner background color, default: `#f0f0f0`)
 - **ticks**=*color* (color of ticks, default: `#333333`)
@@ -63,10 +76,6 @@ Options
 - **segment2**=*color* (inner color of done segment display, default: `#f4dbc2`)
 - **segment3**=*color* (outer color of todo segment display, default: `#2068b0`)
 - **segment4**=*color* (inner color of todo segment display, default: `#c2dbf4`)
-
-Hint: if either option `duration` or `until` are given, the clock with
-show a done/todo-segment and automatically shuts down once the ending
-time is reached.
 
 License
 -------
