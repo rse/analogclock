@@ -50,7 +50,6 @@ class AnalogClock {
         this.started    = null
         this.show       = false
         this.timer      = null
-        this.ticked     = false
         this.ended      = false
         this.svg        = null
         this.svgRefs    = {}
@@ -88,18 +87,19 @@ class AnalogClock {
 
         /*  determine the duration-related information  */
         if (duration > 0) {
-            this.started   = Math.round((new Date()).getTime() / 1000)
-            this.ending    = this.started + duration
+            const now = Math.floor((new Date()).getTime() / 1000)
+            this.started   = now
+            this.ending    = now + duration
             this.ended     = false
-            this.segFrom   = Math.round(this.started / 60) % 60
+            this.segFrom   = (this.started / 60) % 60
             this.segNow    = this.segFrom
-            this.segTo     = Math.round(this.ending / 60) % 60
+            this.segTo     = (this.ending / 60) % 60
         }
 
         /*  setup an update interval  */
         this.timer = setInterval(() => {
             if (duration > 0) {
-                const now = Math.round((new Date()).getTime() / 1000)
+                const now = Math.floor((new Date()).getTime() / 1000)
                 if (now >= this.ending) {
                     if (!this.ended) {
                         /*  end timer  */
@@ -210,24 +210,17 @@ class AnalogClock {
         const W = el.clientWidth
         const R = Math.ceil(W / 2)
         const now = new Date()
-        const H = now.getHours()
-        const M = now.getMinutes()
-        const S = now.getSeconds()
+        const H  = now.getHours()
+        const M  = now.getMinutes()
+        const S  = now.getSeconds()
         const MS = now.getMilliseconds()
-        this.svgRefs.p1.untransform().rotate((360 / 12) * (H % 12) + (360 / 12) / 60 * M, R, R)
-        this.svgRefs.p2.untransform().rotate((360 / 60) * M, R, R)
-        this.svgRefs.p3.untransform().rotate((360 / 60) * S + (360 / 60) / 1000 * MS, R, R)
-
-        /*  perform minute ticks  */
-        if (S === 0 && !this.ticked) {
-            this.ticked = true
-            this.segNow = M
-        }
-        else if (S > 0)
-            this.ticked = false
+        this.svgRefs.p1.untransform().rotate((360 / 12) * (H % 12) + (360 / 12) / 60   * M,  R, R)
+        this.svgRefs.p2.untransform().rotate((360 / 60) * M        + (360 / 60) / 60   * S,  R, R)
+        this.svgRefs.p3.untransform().rotate((360 / 60) * S        + (360 / 60) / 1000 * MS, R, R)
 
         /*  redraw minute segments  */
         if (this.segFrom) {
+            this.segNow = M + (1 / 60) * S
             const deg1 = (360 / 60) * this.segFrom
             const deg2 = (360 / 60) * this.segNow
             const deg3 = (360 / 60) * this.segTo
