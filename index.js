@@ -78,8 +78,11 @@ class AnalogClock {
         let duration = 0
         if (options.duration !== undefined)
             duration = moment.duration(parseInt(options.duration), "m").asSeconds()
-        else if (options.until !== undefined)
+        else if (options.until !== undefined) {
             duration = moment.duration(moment(options.until).diff(moment())).asSeconds()
+            if (duration < 0)
+                duration = 1
+        }
 
         /*   allow restarting the timer  */
         if (this.timer)
