@@ -52,6 +52,7 @@ Options
 - **until**=*iso-time* (duration for segment display until time in ISO format `YYYY-MM-DDTHH:MM:SS`, default: none)
 - **duration**=*minutes* (duration for segment display in 1-60 minutes, default: none)
 - **fraction**=*minutes* (fraction in minutes to round up duration, default: none)
+- **autostop** (whether to automatically stop clock when timer ended, default: none)
 
 Hint: if either option `duration` or `until` are given, the clock with
 show a done/todo-segment and automatically shuts down once the ending
