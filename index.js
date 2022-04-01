@@ -112,7 +112,8 @@ class AnalogClock {
                     if (!this.ended) {
                         /*  end timer  */
                         this.ended = true
-                        this.stop()
+                        if (options.autostop)
+                            this.stop()
                     }
                 }
             }
