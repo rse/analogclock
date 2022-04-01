@@ -49,7 +49,8 @@ class AnalogClock {
         this.remaining  = 0
         this.started    = null
         this.show       = false
-        this.timer      = null
+        this.interval   = null
+        this.ending     = 0
         this.ended      = false
         this.svg        = null
         this.svgRefs    = {}
@@ -74,39 +75,13 @@ class AnalogClock {
         $("body").append(this.el)
     }
     start (options = {}) {
-        /*  determine duration  */
-        let duration = 0
-        if (options.duration !== undefined) {
-            duration = moment.duration(parseInt(options.duration), "m").asSeconds()
-            if (duration > (60 * 60))
-                duration = (60 * 60)
-        }
-        else if (options.until !== undefined) {
-            duration = moment.duration(moment(options.until).diff(moment())).asSeconds()
-            if (duration < 0)
-                duration = 1
-        }
-
-        /*   allow restarting the timer  */
-        if (this.timer)
-            clearTimeout(this.timer)
-
-        /*  determine the duration-related information  */
-        if (duration > 0) {
-            const now = Math.floor((new Date()).getTime() / 1000)
-            this.started   = now
-            this.ending    = now + duration
-            if (options.fraction !== undefined)
-                this.ending = Math.ceil(this.ending / (5 * 60)) * (5 * 60)
-            this.ended     = false
-            this.segFrom   = (this.started / 60) % 60
-            this.segNow    = this.segFrom
-            this.segTo     = (this.ending / 60) % 60
-        }
+        /*   allow restarting the interval timer  */
+        if (this.interval)
+            clearTimeout(this.interval)
 
         /*  setup an update interval  */
-        this.timer = setInterval(() => {
-            if (duration > 0) {
+        this.interval = setInterval(() => {
+            if (this.ending > 0) {
                 const now = Math.floor((new Date()).getTime() / 1000)
                 if (now >= this.ending) {
                     if (!this.ended) {
@@ -134,6 +109,9 @@ class AnalogClock {
                 opacity:   [ 1.0, 1.0 ]
             })
         }, 0)
+
+        /*  optionally start timer  */
+        this.timer(options)
     }
     stop () {
         /*  fly timer out and stop updating  */
@@ -146,11 +124,42 @@ class AnalogClock {
             delay:     200,
             opacity:   [ 1.0, 0.0 ]
         }).finished.then(() => {
-            if (this.timer) {
-                clearTimeout(this.timer)
-                this.timer = null
+            if (this.interval) {
+                clearTimeout(this.interval)
+                this.interval = null
             }
         })
+    }
+    timer (options) {
+        /*  determine duration  */
+        let duration = -1
+        if (options.duration !== undefined) {
+            duration = moment.duration(parseInt(options.duration), "m").asSeconds()
+            if (duration > (60 * 60))
+                duration = (60 * 60)
+        }
+        else if (options.until !== undefined) {
+            duration = moment.duration(moment(options.until).diff(moment())).asSeconds()
+            if (duration < 0)
+                duration = 1
+        }
+
+        /*  determine the duration-related information  */
+        if (duration > 0) {
+            const now = Math.floor((new Date()).getTime() / 1000)
+            this.started   = now
+            this.ending    = now + duration
+            if (options.fraction !== undefined)
+                this.ending = Math.ceil(this.ending / (5 * 60)) * (5 * 60)
+            this.ended     = false
+            this.segFrom   = (this.started / 60) % 60
+            this.segNow    = this.segFrom
+            this.segTo     = (this.ending / 60) % 60
+        }
+        else if (duration === 0) {
+            this.ending = 0
+            this.ended  = true
+        }
     }
     update () {
         if (this.svg === null) {
@@ -254,7 +263,7 @@ class AnalogClock {
             this.svgRefs.segment1.clear()
             this.svgRefs.segment2.clear()
             this.svgRefs.segment3.clear()
-            this.svgRefs.segment3.clear()
+            this.svgRefs.segment4.clear()
         }
     }
 }
@@ -270,5 +279,10 @@ $(document).ready(() => {
 
     /*  start clock  */
     ac.start(props)
+
+    /*  provide timer keystrokes for 1-99 minutes  */
+    for (let d1 = 0; d1 <= 9; d1++)
+        for (let d2 = 0; d2 <= 9; d2++)
+            Mousetrap.bind(`${d1} ${d2}`, () => { ac.timer({ duration: d1 * 10 + d2  }) })
 })
 
