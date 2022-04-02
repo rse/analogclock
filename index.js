@@ -87,11 +87,11 @@ class AnalogClock {
         /*  setup an update interval  */
         this.interval = setInterval(() => {
             if (this.ending > 0) {
-                const now = Math.floor((new Date()).getTime() / 1000)
-                if (now >= this.ending) {
+                if (moment().isSameOrAfter(moment.unix(this.ending))) {
                     if (!this.ended) {
                         /*  end timer  */
-                        this.ended = true
+                        this.ended  = true
+                        this.ending = 0
                         if (options.autostop)
                             this.stop()
                     }
@@ -151,7 +151,7 @@ class AnalogClock {
 
         /*  determine the duration-related information  */
         if (duration > 0) {
-            const now = Math.floor((new Date()).getTime() / 1000)
+            const now = moment().unix()
             this.started   = now
             this.ending    = now + duration
             if (options.fraction !== undefined)
