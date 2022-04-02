@@ -75,13 +75,14 @@ And then use the following URL for rending **AnalogClock** in OBS Studio or vMix
 
 `https://localhost:9999/analogclock/`
 
-Finally, use the following URLs for remote controlling **AnalogClock** from
-e.g. Stream Deck, Companion, CentralControl or ShowCockpit:
+Finally, use the following URLs with HTTP `GET` requests for remote
+controlling **AnalogClock** from e.g. Stream Deck, Companion,
+CentralControl or ShowCockpit:
 
-- `GET https://localhost:9999/analogclock/event/duration.*N*` (*N* = `0`...`59`)
-- `GET https://localhost:9999/analogclock/event/until.`*N* (*N* = `0`...`59`)
-- `GET https://localhost:9999/analogclock/event/attention.`*N*`.`*type* (*N* = `1`...`9`, *type* = `soft` or `hard`)
-- `GET https://localhost:9999/analogclock/event/terminate`
+- `https://localhost:9999/analogclock/event/duration.`*N* (*N* = `0`...`59`)
+- `https://localhost:9999/analogclock/event/until.`*N* (*N* = `0`...`59`)
+- `https://localhost:9999/analogclock/event/attention.`*N*`.`*type* (*N* = `1`...`9`, *type* = `soft` or `hard`)
+- `https://localhost:9999/analogclock/event/terminate`
 
 Options
 -------
