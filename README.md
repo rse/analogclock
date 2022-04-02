@@ -50,9 +50,11 @@ For interactively controlling **AnalogClock** press:
   `d` *N* *M* (*N* = `0` ... `5`, *M* = `0` ... `9`)
 - until-based timer to (*N* x 10) + *M* minute:<br/>
   `u` *N* *M* (*N* = `0` ... `5`, *M* = `0` ... `9`)
-- attention via clock flashing:<br/>
+- manual attention via clock flashing:<br/>
   `a` *N* `s` (*N* = `1` ... `9`, soft/orange) or<br/>
   `a` *N* `h` (*N* = `1` ... `9`, hard/red)
+- termination of timer:<br/>
+  `x`
 
 HUDS
 ----
@@ -79,6 +81,7 @@ e.g. Stream Deck, Companion, CentralControl or ShowCockpit:
 - `GET https://localhost:9999/analogclock/event/duration.`*N* (*N* = `0`...`59`)
 - `GET https://localhost:9999/analogclock/event/until.`*N* (*N* = `0`...`59`)
 - `GET https://localhost:9999/analogclock/event/attention.`*N*`.`*type* (*N* = `1`...`9`, *type* = `soft` or `hard`)
+- `GET https://localhost:9999/analogclock/event/terminate`
 
 Options
 -------
