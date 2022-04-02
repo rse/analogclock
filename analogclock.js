@@ -32,7 +32,8 @@ class AnalogClock {
             opacity:     0.8,
             background1: "#555555",
             background2: "#f0f0f0",
-            background3: "#ff0000",
+            background3: "#ffcc66",
+            background4: "#ff6666",
             ticks:       "#333333",
             digits:      "#666666",
             pointer1:    "#000000",
@@ -53,8 +54,11 @@ class AnalogClock {
         this.interval   = null
         this.ending     = 0
         this.ended      = false
+        this.flashing   = 0
+        this.flashed    = false
         this.svg        = null
         this.svg2       = null
+        this.svg3       = null
         this.svgRefs    = {}
 
         /*  create DOM fragment  */
@@ -63,6 +67,7 @@ class AnalogClock {
                 <div class="canvas">
                     <div class="svg1"></div>
                     <div class="svg2"></div>
+                    <div class="svg3"></div>
                 </div>
             </div>
         `)
@@ -73,6 +78,7 @@ class AnalogClock {
         this.elCanvas = $(".canvas",       this.el).get(0)
         this.elSVG1   = $(".canvas .svg1", this.el).get(0)
         this.elSVG2   = $(".canvas .svg2", this.el).get(0)
+        this.elSVG3   = $(".canvas .svg3", this.el).get(0)
 
         /*  inject DOM fragment into DOM tree  */
         $("body").append(this.el)
@@ -85,13 +91,22 @@ class AnalogClock {
         /*  setup an update interval  */
         this.interval = setInterval(() => {
             if (this.ending > 0) {
+                if (moment().isSameOrAfter(moment.unix(this.flashing))) {
+                    if (!this.flashed) {
+                        this.flashed  = true
+                        this.flashing = 0
+                        this.attention(5, "soft")
+                    }
+                }
                 if (moment().isSameOrAfter(moment.unix(this.ending))) {
                     if (!this.ended) {
                         /*  end timer  */
                         this.ended  = true
                         this.ending = 0
-                        if (options.autostop)
-                            this.stop()
+                        this.attention(5, "hard").then(() => {
+                            if (options.autostop)
+                                this.stop()
+                        })
                     }
                 }
             }
@@ -118,12 +133,12 @@ class AnalogClock {
     }
     stop () {
         /*  fly timer out and stop updating  */
-        anime({
+        return anime({
             targets:   this.elCanvas,
             duration:  1000,
             autoplay:  true,
             direction: "normal",
-            easing:    "easeInSine",
+            easing:    "easeOutSine",
             delay:     0,
             opacity:   [ 1.0, 0.0 ]
         }).finished.then(() => {
@@ -155,30 +170,34 @@ class AnalogClock {
             if (options.fraction !== undefined)
                 this.ending = Math.ceil(this.ending / (5 * 60)) * (5 * 60)
             this.ended     = false
+            this.flashing  = this.ending - ((this.ending - this.started) * 0.10)
+            this.flashed   = false
             this.segFrom   = (this.started / 60) % 60
             this.segNow    = this.segFrom
             this.segTo     = (this.ending / 60) % 60
         }
         else if (duration === 0) {
-            this.ending = 0
-            this.ended  = true
+            this.ending   = 0
+            this.ended    = true
+            this.flashing = 0
+            this.flashed  = true
         }
     }
-    attention (level = 1) {
+    attention (level = 1, type = "soft") {
         /*  fly timer out and stop updating  */
         let opacity = []
         for (let i = 0; i < level; i++)
             opacity = opacity.concat([ 0.0, 0.5 ])
         opacity = opacity.concat([ 0.0 ])
-        anime({
-            targets:   this.elSVG2,
+        return anime({
+            targets:   type === "soft" ? this.elSVG2 : this.elSVG3,
             duration:  level * 1000,
             autoplay:  true,
             direction: "normal",
-            easing:    "easeInSine",
+            easing:    "easeInOutSine",
             delay:     0,
             opacity
-        })
+        }).finished
     }
     update () {
         if (this.svg2 === null) {
@@ -190,6 +209,16 @@ class AnalogClock {
             this.svg2 = svg
             const R = Math.ceil(W / 2)
             svg.circle(R * 2).move(0, 0).fill(this.props.background3)
+        }
+        if (this.svg3 === null) {
+            /*  initially render overlay  */
+            const el = this.elSVG3
+            const W = el.clientWidth
+            const H = el.clientHeight
+            const svg = SVG().addTo(el).size(W, H)
+            this.svg3 = svg
+            const R = Math.ceil(W / 2)
+            svg.circle(R * 2).move(0, 0).fill(this.props.background4)
         }
         if (this.svg === null) {
             /*  initially render clock  */

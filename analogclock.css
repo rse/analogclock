@@ -46,7 +46,8 @@ body {
 }
 
 .analogclock .canvas .svg1,
-.analogclock .canvas .svg2 {
+.analogclock .canvas .svg2,
+.analogclock .canvas .svg3 {
     position: absolute;
     top:      0;
     left:     0;
@@ -54,7 +55,8 @@ body {
     height:   100%;
 }
 
-.analogclock .canvas .svg2 {
+.analogclock .canvas .svg2,
+.analogclock .canvas .svg3 {
     opacity: 0.0;
 }
 

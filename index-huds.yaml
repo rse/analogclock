@@ -28,7 +28,8 @@ analogclock:
     opacity:               0.80
     background1:           "#555555"
     background2:           "#f0f0f0"
-    background3:           "#ff0000"
+    background3:           "#ffc000"
+    background4:           "#ff0000"
     ticks:                 "#333333"
     digits:                "#666666"
     pointer1:              "#000000"
