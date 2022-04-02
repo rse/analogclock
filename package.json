@@ -4,7 +4,6 @@
     "description":                 "Analog Clock for OBS Studio or vMix",
     "main":                        "index.html",
     "keywords":                    [ "analog", "clock", "obs", "studio", "vmix" ],
-    "private":                     true,
     "repository": {
         "type":                    "git",
         "url":                     "https://github.com/rse/analogclock.git"
