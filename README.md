@@ -83,6 +83,10 @@ time is reached.
 - **segment3**=*color* (outer color of todo segment display, default: `#2068b0`)
 - **segment4**=*color* (inner color of todo segment display, default: `#c2dbf4`)
 
+### Hint Options
+
+- **lang**=*iso-cc* (language as ISO country-code for voice messages, default: `en`)
+
 Control
 -------
 
@@ -97,6 +101,10 @@ For interactively controlling **AnalogClock** press:
   <kbd>a</kbd> <kbd>*N*</kbd> <kbd>h</kbd> (*N* = `1` ... `9`, hard/red)
 - termination of timer:<br/>
   <kbd>x</kbd>
+- manual voice hints:<br/>
+  <kbd>h</kbd> <kbd>s</kbd> (slower)<br/>
+  <kbd>h</kbd> <kbd>f</kbd> (faster)<br/>
+  <kbd>h</kbd> <kbd>m</kbd> (message)
 
 HUDS
 ----
@@ -125,6 +133,9 @@ CentralControl or ShowCockpit:
 - `https://localhost:9999/analogclock/event/until.`*N* (*N* = `0`...`59`)
 - `https://localhost:9999/analogclock/event/attention.`*N*`.`*type* (*N* = `1`...`9`, *type* = `soft` or `hard`)
 - `https://localhost:9999/analogclock/event/terminate`
+- `https://localhost:9999/analogclock/event/hint.slower`
+- `https://localhost:9999/analogclock/event/hint.faster`
+- `https://localhost:9999/analogclock/event/hint.message`
 
 License
 -------
