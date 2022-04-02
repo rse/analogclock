@@ -76,7 +76,7 @@
                 /*  provide timer termination  */
                 Mousetrap.bind("x", () => { ac.timer({ duration: 0 }) })
 
-                /*  provide timer keystrokes for 1-9 attention flashs  */
+                /*  provide timer keystrokes for 1-9 attention flashes  */
                 for (let i = 1; i <= 9; i++) {
                     Mousetrap.bind(`a ${i} s`, () => { ac.attention(i, "soft") })
                     Mousetrap.bind(`a ${i} h`, () => { ac.attention(i, "hard") })

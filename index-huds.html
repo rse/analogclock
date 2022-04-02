@@ -82,7 +82,7 @@
                     ac.timer({ duration: 0 })
                 })
 
-                /*  provide timer events for 1-9 attention flashs  */
+                /*  provide timer events for 1-9 attention flashes  */
                 huds.bind("attention.*", (event, data) => {
                     const m = event.match(/^attention\.(\d+)\.(soft|hard)$/)
                     const flashes = parseInt(m[1])
