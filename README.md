@@ -14,8 +14,8 @@ a count-down until an event starts or as a duration for a pause.
 
 ![AnalogClock screenshot](screenshot.png)
 
-Usage
------
+Installation
+------------
 
 1. Install [Node.js](https://nodejs.org/) and [Git](https://git-scm.com/).
 
@@ -25,6 +25,9 @@ Usage
 
 3. Download all dependencies:<br/>
    `$ npm install`
+
+Usage
+-----
 
 4. Add your *Browser Source* source to *OBS Studio*:
 
@@ -43,6 +46,43 @@ Usage
    - URL: `file://`*local-path*`/analogclock/index.html?`*options*
    - Width: **1920** (or whatever is your stream resolution width)
    - Height: **1080** (or whatever is your stream resolution height)
+
+Options
+-------
+
+### Time Options
+
+- **until**=*iso-time* (duration for segment display until time in ISO format `YYYY-MM-DDTHH:MM:SS`, default: none)
+- **duration**=*minutes* (duration for segment display in 1-60 minutes, default: none)
+- **fraction**=*minutes* (fraction in minutes to round up duration, default: none)
+- **autostop** (whether to automatically stop clock when timer ended, default: none)
+
+Hint: if either option `duration` or `until` are given, the clock with
+show a done/todo-segment and automatically shuts down once the ending
+time is reached.
+
+### Size Options
+
+- **width**=*pixels* (width of clock in pixels, default: `500`)
+- **height**=*pixels* (height of clock in pixels, default: `500`)
+- **opacity**=*number* (amount of opacity of clock in 0.0-1.0 range, default: `0.8`)
+
+### Color Options
+
+- **background1**=*color* (outer border color, default: `#555555`)
+- **background2**=*color* (inner background color, default: `#f0f0f0`)
+- **ticks**=*color* (color of ticks, default: `#333333`)
+- **digits**=*color* (color of digits, default: `#666666`)
+- **pointer1**=*color* (color of hour pointer, default: `#000000`)
+- **pointer2**=*color* (color of minute pointer, default: `#222222`)
+- **pointer3**=*color* (color of second pointer, default: `#cc0000`)
+- **segment1**=*color* (outer color of done segment display, default: `#b06820`)
+- **segment2**=*color* (inner color of done segment display, default: `#f4dbc2`)
+- **segment3**=*color* (outer color of todo segment display, default: `#2068b0`)
+- **segment4**=*color* (inner color of todo segment display, default: `#c2dbf4`)
+
+Control
+-------
 
 For interactively controlling **AnalogClock** press:
 
@@ -84,39 +124,6 @@ CentralControl or ShowCockpit:
 - `https://localhost:9999/analogclock/event/attention.`*N*`.`*type* (*N* = `1`...`9`, *type* = `soft` or `hard`)
 - `https://localhost:9999/analogclock/event/terminate`
 
-Options
--------
-
-### Time Options
-
-- **until**=*iso-time* (duration for segment display until time in ISO format `YYYY-MM-DDTHH:MM:SS`, default: none)
-- **duration**=*minutes* (duration for segment display in 1-60 minutes, default: none)
-- **fraction**=*minutes* (fraction in minutes to round up duration, default: none)
-- **autostop** (whether to automatically stop clock when timer ended, default: none)
-
-Hint: if either option `duration` or `until` are given, the clock with
-show a done/todo-segment and automatically shuts down once the ending
-time is reached.
-
-### Size Options
-
-- **width**=*pixels* (width of clock in pixels, default: `500`)
-- **height**=*pixels* (height of clock in pixels, default: `500`)
-- **opacity**=*number* (amount of opacity of clock in 0.0-1.0 range, default: `0.8`)
-
-### Color Options
-
-- **background1**=*color* (outer border color, default: `#555555`)
-- **background2**=*color* (inner background color, default: `#f0f0f0`)
-- **ticks**=*color* (color of ticks, default: `#333333`)
-- **digits**=*color* (color of digits, default: `#666666`)
-- **pointer1**=*color* (color of hour pointer, default: `#000000`)
-- **pointer2**=*color* (color of minute pointer, default: `#222222`)
-- **pointer3**=*color* (color of second pointer, default: `#cc0000`)
-- **segment1**=*color* (outer color of done segment display, default: `#b06820`)
-- **segment2**=*color* (inner color of done segment display, default: `#f4dbc2`)
-- **segment3**=*color* (outer color of todo segment display, default: `#2068b0`)
-- **segment4**=*color* (inner color of todo segment display, default: `#c2dbf4`)
 
 License
 -------
