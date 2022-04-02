@@ -328,9 +328,8 @@ $(document).ready(() => {
         }
     }
 
-    /*  provide timer keystrokes for attention  */
-    Mousetrap.bind(`a 1`, () => { ac.attention(1) })
-    Mousetrap.bind(`a 2`, () => { ac.attention(2) })
-    Mousetrap.bind(`a 3`, () => { ac.attention(3) })
+    /*  provide timer keystrokes for 1-9 attention flashs  */
+    for (let i = 1; i <= 9; i++)
+        Mousetrap.bind(`a ${i}`, () => { ac.attention(i) })
 })
 
