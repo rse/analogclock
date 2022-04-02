@@ -2,7 +2,7 @@
 AnalogClock
 ===========
 
-**Analog Clock for OBS Studio**
+**Analog Clock for OBS Studio or vMix**
 
 Abstract
 --------
