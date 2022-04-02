@@ -18,6 +18,15 @@
     "license":                     "MIT",
     "homepage":                    "https://github.com/rse/analogclock",
     "bugs":                        "https://github.com/rse/analogclock/issues",
+    "dependencies": {
+        "jquery":                  "3.6.0",
+        "animejs":                 "3.2.1",
+        "@svgdotjs/svg.js":        "3.1.2",
+        "svg.path.js":             "otm/svg.path.js#6981166",
+        "moment":                  "2.29.1",
+        "mousetrap":               "1.6.5",
+        "typopro-web":             "4.2.6"
+    },
     "optionalDependencies": {
         "huds":                    "1.6.14"
     },
