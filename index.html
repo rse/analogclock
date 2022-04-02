@@ -40,6 +40,8 @@
         <script type="text/javascript" src="node_modules/svg.path.js/svg.path.js"></script>
         <script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
         <script type="text/javascript" src="node_modules/mousetrap/mousetrap.min.js"></script>
+        <script type="text/javascript" src="node_modules/howler/dist/howler.min.js"></script>
+        <script type="text/javascript" src="node_modules/@rse/soundfx/soundfx.browser.js"></script>
 
         <script type="text/javascript" src="analogclock.js"></script>
         <link type="text/css" rel="stylesheet" href="analogclock.css"/>
@@ -47,6 +49,10 @@
         <script type="text/javascript">
             /*  render a single instance of the clock  */
             $(document).ready(() => {
+                /*  initialize sound effects  */
+                const sfx = new SoundFX({ basedir: "node_modules/@rse/soundfx" })
+                soundfx = new Howl({ ...sfx.config(), volume: 0.50, preload: true })
+
                 /*  determine properties  */
                 const props = {}
                 const params = (new URL(document.location)).searchParams

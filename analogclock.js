@@ -56,6 +56,8 @@ class AnalogClock {
         this.ended      = false
         this.flashing   = 0
         this.flashed    = false
+        this.ticked     = false
+        this.soundid    = null
         this.svg        = null
         this.svg2       = null
         this.svg3       = null
@@ -93,6 +95,7 @@ class AnalogClock {
             if (this.ending > 0) {
                 if (moment().isSameOrAfter(moment.unix(this.flashing))) {
                     if (!this.flashed) {
+                        soundfx.play("jingle2")
                         this.flashed  = true
                         this.flashing = 0
                         this.attention(5, "soft")
@@ -101,6 +104,7 @@ class AnalogClock {
                 if (moment().isSameOrAfter(moment.unix(this.ending))) {
                     if (!this.ended) {
                         /*  end timer  */
+                        soundfx.play("scale1")
                         this.ended  = true
                         this.ending = 0
                         this.attention(5, "hard").then(() => {
@@ -116,6 +120,7 @@ class AnalogClock {
         /*  once render timer and fly it in  */
         setTimeout(() => {
             this.update()
+            soundfx.play("slide4")
             anime({
                 targets:   this.elCanvas,
                 duration:  1000,
@@ -133,6 +138,7 @@ class AnalogClock {
     }
     stop () {
         /*  fly timer out and stop updating  */
+        soundfx.play("whoosh2")
         return anime({
             targets:   this.elCanvas,
             duration:  1000,
@@ -291,6 +297,13 @@ class AnalogClock {
         this.svgRefs.p1.untransform().rotate((360 / 12) * (H % 12) + (360 / 12) / 60   * M,  R, R)
         this.svgRefs.p2.untransform().rotate((360 / 60) * M        + (360 / 60) / 60   * S,  R, R)
         this.svgRefs.p3.untransform().rotate((360 / 60) * S        + (360 / 60) / 1000 * MS, R, R)
+
+        if (S === 0 && !this.ticked) {
+            soundfx.play("click5")
+            this.ticked = true
+        }
+        else if (S > 0)
+            this.ticked = false
 
         /*  redraw clock segment  */
         if (this.segFrom && !this.ended) {

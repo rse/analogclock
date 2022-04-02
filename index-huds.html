@@ -40,6 +40,8 @@
         <script type="text/javascript" src="@svg.path.js/svg.path.js"></script>
         <script type="text/javascript" src="@moment/min/moment.min.js"></script>
         <script type="text/javascript" src="@mousetrap/mousetrap.min.js"></script>
+        <script type="text/javascript" src="@howler/dist/howler.min.js"></script>
+        <script type="text/javascript" src="@@rse/soundfx/soundfx.browser.js"></script>
 
         <script type="text/javascript" src="analogclock.js"></script>
         <link type="text/css" rel="stylesheet" href="analogclock.css"/>
@@ -47,6 +49,10 @@
         <script type="text/javascript" src="huds"></script>
         <script type="text/javascript">
             $(document).ready(() => {
+                /*  initialize sound effects  */
+                const sfx = new SoundFX({ basedir: "@@rse/soundfx" })
+                soundfx = new Howl({ ...sfx.config(), volume: 0.50, preload: true })
+
                 /*  initialize backend communication  */
                 const huds = new HUDS()
                 huds.on("open",    ()        => { console.log("HUDS: WebSocket: open") })
