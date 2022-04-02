@@ -47,14 +47,14 @@ Usage
 For interactively controlling **AnalogClock** press:
 
 - duration-based timer of (*N* x 10) + *M* minutes:<br/>
-  `d` *N* *M* (*N* = `0` ... `5`, *M* = `0` ... `9`)
+  <kbd>d</kbd> <kbd>*N*</kbd> <kbd>*M*</kbd> (*N* = `0` ... `5`, *M* = `0` ... `9`)
 - until-based timer to (*N* x 10) + *M* minute:<br/>
-  `u` *N* *M* (*N* = `0` ... `5`, *M* = `0` ... `9`)
+  <kbd>u</kbd> <kbd>*N*</kbd> <kbd>*M*</kbd> (*N* = `0` ... `5`, *M* = `0` ... `9`)
 - manual attention via clock flashing:<br/>
-  `a` *N* `s` (*N* = `1` ... `9`, soft/orange) or<br/>
-  `a` *N* `h` (*N* = `1` ... `9`, hard/red)
+  <kbd>a</kbd> <kbd>*N*</kbd> <kbd>s</kbd> (*N* = `1` ... `9`, soft/orange) or<br/>
+  <kbd>a</kbd> <kbd>*N*</kbd> <kbd>h</kbd> (*N* = `1` ... `9`, hard/red)
 - termination of timer:<br/>
-  `x`
+  <kbd>x</kbd>
 
 HUDS
 ----
