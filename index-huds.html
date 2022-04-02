@@ -29,8 +29,9 @@
         <title>Analog Clock</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="index.css"/>
+
         <script type="text/javascript">var module = {}</script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
@@ -38,7 +39,52 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/otm/svg.path.js@6981166/svg.path.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mousetrap@1.6.5/mousetrap.min.js"></script>
-        <script type="text/javascript" src="index.js"></script>
+
+        <script type="text/javascript" src="analogclock.js"></script>
+        <link type="text/css" rel="stylesheet" href="analogclock.css"/>
+
+        <script type="text/javascript" src="huds"></script>
+        <script type="text/javascript">
+            $(document).ready(() => {
+                /*  initialize backend communication  */
+                const huds = new HUDS()
+                huds.on("open",    ()        => { console.log("HUDS: WebSocket: open") })
+                huds.on("close",   ()        => { console.log("HUDS: WebSocket: close") })
+                huds.on("error",   (error)   => { console.log("HUDS: WebSocket: error", error) })
+                huds.connect()
+
+                /*  determine options  */
+                const options = { ...huds.config().analogclock, ...huds.options }
+
+                /*  initialize and start clock  */
+                const ac = new AnalogClock(options)
+                ac.start(options)
+
+                /*  provide timer events for 0-99 minutes duration  */
+                huds.bind("duration.*", (event, data) => {
+                    const m = event.match(/^duration\.(\d+)$/)
+                    ac.timer({ duration: parseInt(m[1]) })
+                })
+
+                /*  provide timer events for 0-59 minutes until-time  */
+                huds.bind("until.*", (event, data) => {
+                    const m = event.match(/^until\.(\d+)$/)
+                    const minutes = parseInt(m[1])
+                    const now   = moment()
+                    const until = moment().minutes(minutes).seconds(0)
+                    if (until.isBefore(now))
+                        until.add(1, "hours")
+                    ac.timer({ until: until.format() })
+                })
+
+                /*  provide timer events for 1-9 attention flashs  */
+                huds.bind("attention.*", (event, data) => {
+                    const m = event.match(/^attention\.(\d+)$/)
+                    const flashes = parseInt(m[1])
+                    ac.attention(flashes)
+                })
+            })
+        </script>
     </head>
     <body>
     </body>

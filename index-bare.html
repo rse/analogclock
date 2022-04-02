@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+**
+**  AnalogClock ~ Analog Clock for OBS Studio
+**  Copyright (c) 2021-2022 Dr. Ralf S. Engelschall <rse@engelschall.com>
+**
+**  Permission is hereby granted, free of charge, to any person obtaining
+**  a copy of this software and associated documentation files (the
+**  "Software"), to deal in the Software without restriction, including
+**  without limitation the rights to use, copy, modify, merge, publish,
+**  distribute, sublicense, and/or sell copies of the Software, and to
+**  permit persons to whom the Software is furnished to do so, subject to
+**  the following conditions:
+**
+**  The above copyright notice and this permission notice shall be included
+**  in all copies or substantial portions of the Software.
+**
+**  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+**  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+**  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+**  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+**  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+**  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+**  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+**
+-->
+<html>
+    <head>
+        <title>Analog Clock</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+
+        <script type="text/javascript">var module = {}</script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.1.2/dist/svg.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/otm/svg.path.js@6981166/svg.path.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mousetrap@1.6.5/mousetrap.min.js"></script>
+
+        <script type="text/javascript" src="analogclock.js"></script>
+        <link type="text/css" rel="stylesheet" href="analogclock.css"/>
+
+        <script type="text/javascript">
+            /*  render a single instance of the clock  */
+            $(document).ready(() => {
+                /*  determine properties  */
+                const props = {}
+                const params = (new URL(document.location)).searchParams
+                for (const [ key, val ] of params)
+                    props[key] = val
+
+                /*  initialize and start clock  */
+                const ac = new AnalogClock(props)
+                ac.start(props)
+
+                /*  provide timer keystrokes for 0-99 minutes duration  */
+                for (let d1 = 0; d1 <= 9; d1++)
+                    for (let d2 = 0; d2 <= 9; d2++)
+                        Mousetrap.bind(`d ${d1} ${d2}`, () => { ac.timer({ duration: d1 * 10 + d2  }) })
+
+                /*  provide timer keystrokes for 0-59 minutes until-time  */
+                for (let d1 = 0; d1 <= 5; d1++) {
+                    for (let d2 = 0; d2 <= 9; d2++) {
+                        const minutes = d1 * 10 + d2
+                        const now   = moment()
+                        const until = moment().minutes(minutes).seconds(0)
+                        if (until.isBefore(now))
+                            until.add(1, "hours")
+                        Mousetrap.bind(`u ${d1} ${d2}`, () => { ac.timer({ until: until.format() }) })
+                    }
+                }
+
+                /*  provide timer keystrokes for 1-9 attention flashs  */
+                for (let i = 1; i <= 9; i++)
+                    Mousetrap.bind(`a ${i}`, () => { ac.attention(i) })
+            })
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
