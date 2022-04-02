@@ -126,7 +126,6 @@ CentralControl or ShowCockpit:
 - `https://localhost:9999/analogclock/event/attention.`*N*`.`*type* (*N* = `1`...`9`, *type* = `soft` or `hard`)
 - `https://localhost:9999/analogclock/event/terminate`
 
-
 License
 -------
 
