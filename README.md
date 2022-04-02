@@ -44,6 +44,16 @@ Usage
    - Width: **1920** (or whatever is your stream resolution width)
    - Height: **1080** (or whatever is your stream resolution height)
 
+For interactively controlling **AnalogClock** press:
+
+- duration-based timer of (*N* x 10) + *M* minutes:<br/>
+  `d` *N* *M* (*N* = `0` ... `5`, *M* = `0` ... `9`)
+- until-based timer to (*N* x 10) + *M* minute:<br/>
+  `u` *N* *M* (*N* = `0` ... `5`, *M* = `0` ... `9`)
+- attention via clock flashing:<br/>
+  `a` *N* `s` (*N* = `1` ... `9`, soft/orange) or<br/>
+  `a` *N* `h` (*N* = `1` ... `9`, hard/red)
+
 HUDS
 ----
 
