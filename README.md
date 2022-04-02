@@ -44,6 +44,32 @@ Usage
    - Width: **1920** (or whatever is your stream resolution width)
    - Height: **1080** (or whatever is your stream resolution height)
 
+HUDS
+----
+
+Alternatively, instead of running **AnalogClock** as a standalone
+application, it can also be run on top of [Head-Up-Display Server
+(HUDS)](https://github.com/rse/huds). The advantage is that instead
+of having to interactively control **AnalogClock**, it can be remote
+controlled through HTTP and MQTT.
+
+For this, run HUDS with **AnalogClock** with:
+
+```sh
+npx huds -a 0.0.0.0 -p 9999 -d analogclock:index-huds.html,index-huds.yaml
+```
+
+And then use the following URL for rending **AnalogClock** in OBS Studio or vMix:
+
+`https://localhost:9999/analogclock/`
+
+Finally, use the following URLs for remote controlling **AnalogClock** from
+e.g. Stream Deck, Companion, CentralControl or ShowCockpit:
+
+- `GET https://localhost:9999/analogclock/event/duration.`*N* (*N* = `0`...`59`)
+- `GET https://localhost:9999/analogclock/event/until.`*N* (*N* = `0`...`59`)
+- `GET https://localhost:9999/analogclock/event/attention.`*N*`.`*type* (*N* = `1`...`9`, *type* = `soft` or `hard`)
+
 Options
 -------
 
