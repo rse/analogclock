@@ -93,6 +93,11 @@
                     Mousetrap.bind(`a ${i} s`, () => { ac.attention(i, "soft") })
                     Mousetrap.bind(`a ${i} h`, () => { ac.attention(i, "hard") })
                 }
+
+                /*  provide timer hints  */
+                Mousetrap.bind("h s", () => { ac.hint("slower") })
+                Mousetrap.bind("h f", () => { ac.hint("faster") })
+                Mousetrap.bind("h m", () => { ac.hint("message") })
             })
         </script>
     </head>

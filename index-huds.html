@@ -101,6 +101,11 @@
                     const type    = m[2]
                     ac.attention(flashes, type)
                 })
+
+                /*  provide timer hints  */
+                huds.bind("hint.slower",  () => { ac.hint("slower") })
+                huds.bind("hint.faster",  () => { ac.hint("faster") })
+                huds.bind("hint.message", () => { ac.hint("message") })
             })
         </script>
     </head>

@@ -229,6 +229,18 @@ class AnalogClock {
             opacity
         }).finished
     }
+    hint (type) {
+        let id
+        if (type === "message")
+            id = soundvm.play(`hint-message-${this.props.lang}`)
+        else if (type === "faster")
+            id = soundvm.play(`speed-faster-${this.props.lang}`)
+        else if (type === "slower")
+            id = soundvm.play(`speed-slower-${this.props.lang}`)
+        else
+            throw new Error("invalid hint type")
+        return new Promise((resolve) => soundvm.once("play", resolve, id))
+    }
     update () {
         if (this.svg2 === null) {
             /*  initially render overlay  */
