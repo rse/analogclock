@@ -256,11 +256,11 @@ class AnalogClock {
         const el = this.elSVG1
         const W = el.clientWidth
         const R = Math.ceil(W / 2)
-        const now = new Date()
-        const H  = now.getHours()
-        const M  = now.getMinutes()
-        const S  = now.getSeconds()
-        const MS = now.getMilliseconds()
+        const now = moment()
+        const H  = now.hours()
+        const M  = now.minutes()
+        const S  = now.seconds()
+        const MS = now.milliseconds()
         this.svgRefs.p1.untransform().rotate((360 / 12) * (H % 12) + (360 / 12) / 60   * M,  R, R)
         this.svgRefs.p2.untransform().rotate((360 / 60) * M        + (360 / 60) / 60   * S,  R, R)
         this.svgRefs.p3.untransform().rotate((360 / 60) * S        + (360 / 60) / 1000 * MS, R, R)
