@@ -45,8 +45,16 @@ body {
     height: 100%;
 }
 
-.analogclock .canvas .svg {
-    width:  100%;
-    height: 100%;
+.analogclock .canvas .svg1,
+.analogclock .canvas .svg2 {
+    position: absolute;
+    top:      0;
+    left:     0;
+    width:    100%;
+    height:   100%;
+}
+
+.analogclock .canvas .svg2 {
+    opacity: 0.0;
 }
 

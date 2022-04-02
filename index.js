@@ -32,6 +32,7 @@ class AnalogClock {
             opacity:     0.8,
             background1: "#555555",
             background2: "#f0f0f0",
+            background3: "#ff0000",
             ticks:       "#333333",
             digits:      "#666666",
             pointer1:    "#000000",
@@ -53,13 +54,16 @@ class AnalogClock {
         this.ending     = 0
         this.ended      = false
         this.svg        = null
+        this.svg2       = null
         this.svgRefs    = {}
 
         /*  create DOM fragment  */
         this.el = $(`
             <div class="analogclock">
                 <div class="canvas">
-                    <div class="svg">
+                    <div class="svg1">
+                    </div>
+                    <div class="svg2">
                     </div>
                 </div>
             </div>
@@ -68,8 +72,9 @@ class AnalogClock {
             .css("width",  `${this.props.width}px`)
             .css("height", `${this.props.height}px`)
             .css("opacity", this.props.opacity)
-        this.elCanvas = $(".canvas",      this.el).get(0)
-        this.elSVG    = $(".canvas .svg", this.el).get(0)
+        this.elCanvas = $(".canvas",       this.el).get(0)
+        this.elSVG1   = $(".canvas .svg1", this.el).get(0)
+        this.elSVG2   = $(".canvas .svg2", this.el).get(0)
 
         /*  inject DOM fragment into DOM tree  */
         $("body").append(this.el)
@@ -121,7 +126,7 @@ class AnalogClock {
             autoplay:  true,
             direction: "normal",
             easing:    "easeInSine",
-            delay:     200,
+            delay:     0,
             opacity:   [ 1.0, 0.0 ]
         }).finished.then(() => {
             if (this.interval) {
@@ -161,10 +166,36 @@ class AnalogClock {
             this.ended  = true
         }
     }
+    attention (level = 1) {
+        /*  fly timer out and stop updating  */
+        let opacity = []
+        for (let i = 0; i < level; i++)
+            opacity = opacity.concat([ 0.0, 0.5 ])
+        opacity = opacity.concat([ 0.0 ])
+        anime({
+            targets:   this.elSVG2,
+            duration:  level * 1000,
+            autoplay:  true,
+            direction: "normal",
+            easing:    "easeInSine",
+            delay:     0,
+            opacity
+        })
+    }
     update () {
+        if (this.svg2 === null) {
+            /*  initially render overlay  */
+            const el = this.elSVG2
+            const W = el.clientWidth
+            const H = el.clientHeight
+            const svg = SVG().addTo(el).size(W, H)
+            this.svg2 = svg
+            const R = Math.ceil(W / 2)
+            svg.circle(R * 2).move(0, 0).fill(this.props.background3)
+        }
         if (this.svg === null) {
             /*  initially render clock  */
-            const el = this.elSVG
+            const el = this.elSVG1
             const W = el.clientWidth
             const H = el.clientHeight
             const svg = SVG().addTo(el).size(W, H)
@@ -222,7 +253,7 @@ class AnalogClock {
         }
 
         /*  update clock pointers  */
-        const el = this.elSVG
+        const el = this.elSVG1
         const W = el.clientWidth
         const R = Math.ceil(W / 2)
         const now = new Date()
@@ -280,9 +311,26 @@ $(document).ready(() => {
     /*  start clock  */
     ac.start(props)
 
-    /*  provide timer keystrokes for 1-99 minutes  */
+    /*  provide timer keystrokes for 0-99 minutes duration  */
     for (let d1 = 0; d1 <= 9; d1++)
         for (let d2 = 0; d2 <= 9; d2++)
-            Mousetrap.bind(`${d1} ${d2}`, () => { ac.timer({ duration: d1 * 10 + d2  }) })
+            Mousetrap.bind(`d ${d1} ${d2}`, () => { ac.timer({ duration: d1 * 10 + d2  }) })
+
+    /*  provide timer keystrokes for 0-59 minutes until-time  */
+    for (let d1 = 0; d1 <= 5; d1++) {
+        for (let d2 = 0; d2 <= 9; d2++) {
+            let minutes = d1 * 10 + d2
+            const now   = moment()
+            const until = moment().minutes(minutes).seconds(0)
+            if (until.isBefore(now))
+                until.add(1, "hours")
+            Mousetrap.bind(`u ${d1} ${d2}`, () => { ac.timer({ until: until.format()}) })
+        }
+    }
+
+    /*  provide timer keystrokes for attention  */
+    Mousetrap.bind(`a 1`, () => { ac.attention(1) })
+    Mousetrap.bind(`a 2`, () => { ac.attention(2) })
+    Mousetrap.bind(`a 3`, () => { ac.attention(3) })
 })
 
