@@ -1,7 +1,7 @@
 {
     "name":                        "@rse/analogclock",
     "publishConfig":               { "access": "public" },
-    "version":                     "1.3.2",
+    "version":                     "1.3.3",
     "description":                 "Analog Clock for OBS Studio or vMix",
     "browser":                     "index.html",
     "keywords":                    [ "analog", "clock", "obs", "studio", "vmix" ],
