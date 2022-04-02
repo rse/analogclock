@@ -71,6 +71,8 @@ time is reached.
 
 - **background1**=*color* (outer border color, default: `#555555`)
 - **background2**=*color* (inner background color, default: `#f0f0f0`)
+- **background3**=*color* (soft attention overlay color, default: `#ffcc66`)
+- **background4**=*color* (hard attention overlay color, default: `#ff6666`)
 - **ticks**=*color* (color of ticks, default: `#333333`)
 - **digits**=*color* (color of digits, default: `#666666`)
 - **pointer1**=*color* (color of hour pointer, default: `#000000`)
