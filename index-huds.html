@@ -42,6 +42,7 @@
         <script type="text/javascript" src="@mousetrap/mousetrap.min.js"></script>
         <script type="text/javascript" src="@howler/dist/howler.min.js"></script>
         <script type="text/javascript" src="@@rse/soundfx/soundfx.browser.js"></script>
+        <script type="text/javascript" src="@@rse/soundvm/soundvm.browser.js"></script>
 
         <script type="text/javascript" src="analogclock.js"></script>
         <link type="text/css" rel="stylesheet" href="analogclock.css"/>
@@ -52,6 +53,10 @@
                 /*  initialize sound effects  */
                 const sfx = new SoundFX({ basedir: "@@rse/soundfx" })
                 soundfx = new Howl({ ...sfx.config(), volume: 0.50, preload: true })
+
+                /*  initialize sound voice-messages  */
+                const svm = new SoundVM({ basedir: "node_modules/@rse/soundvm" })
+                soundvm = new Howl({ ...svm.config(), volume: 0.50, preload: true })
 
                 /*  initialize backend communication  */
                 const huds = new HUDS()

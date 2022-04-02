@@ -26,7 +26,8 @@
         "mousetrap":               "1.6.5",
         "typopro-web":             "4.2.6",
         "howler":                  "2.2.3",
-        "@rse/soundfx":            "1.1.2"
+        "@rse/soundfx":            "1.1.3",
+        "@rse/soundvm":            "0.9.1"
     },
     "optionalDependencies": {
         "huds":                    "1.6.14"

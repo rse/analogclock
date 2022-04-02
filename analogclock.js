@@ -43,6 +43,7 @@ class AnalogClock {
             segment2:    "#f4dbc2",
             segment3:    "#2068b0",
             segment4:    "#c2dbf4",
+            lang:        "en",
             ...props
         }
 
@@ -54,9 +55,10 @@ class AnalogClock {
         this.interval   = null
         this.ending     = 0
         this.ended      = false
-        this.flashing   = 0
         this.flashed    = false
         this.ticked     = false
+        this.left       = {}
+        this.at         = {}
         this.soundid    = null
         this.svg        = null
         this.svg2       = null
@@ -91,27 +93,41 @@ class AnalogClock {
             clearTimeout(this.interval)
 
         /*  setup an update interval  */
-        this.interval = setInterval(() => {
+        this.interval = setInterval(async () => {
             if (this.ending > 0) {
-                if (moment().isSameOrAfter(moment.unix(this.flashing))) {
-                    if (!this.flashed) {
-                        soundfx.play("jingle2")
-                        this.flashed  = true
-                        this.flashing = 0
-                        this.attention(5, "soft")
+                for (const p of [ 33, 66 ]) {
+                    if (this.at[p] && !this.at[p].done && moment().isSameOrAfter(moment.unix(this.at[p].time))) {
+                        const id = soundvm.play(`time-at-${p}p-${this.props.lang}`)
+                        await new Promise((resolve) => soundvm.once("play", resolve, id))
+                        this.at[p].done = true
+                        break
                     }
                 }
-                if (moment().isSameOrAfter(moment.unix(this.ending))) {
-                    if (!this.ended) {
-                        /*  end timer  */
-                        soundfx.play("scale1")
-                        this.ended  = true
-                        this.ending = 0
-                        this.attention(5, "hard").then(() => {
-                            if (options.autostop)
-                                this.stop()
-                        })
+                for (const i of [ 5, 4, 3, 2, 1 ]) {
+                    if (this.left[i] && this.left[i].time > 0 && !this.left[i].done &&
+                        moment().isSameOrAfter(moment.unix(this.left[i].time))) {
+                        const id = soundvm.play(`time-left-${i}m-${this.props.lang}`)
+                        await new Promise((resolve) => soundvm.once("play", resolve, id))
+                        this.left[i].done = true
+                        if (!this.flashed) {
+                            this.flashed = true
+                            this.attention(5, "soft")
+                            soundfx.play("jingle2")
+                        }
+                        break
                     }
+                }
+                if (!this.ended && moment().isSameOrAfter(moment.unix(this.ending))) {
+                    /*  end timer  */
+                    const id = soundvm.play(`time-left-0m-${this.props.lang}`)
+                    await new Promise((resolve) => soundvm.once("play", resolve, id))
+                    soundfx.play("scale1")
+                    this.ended  = true
+                    this.ending = 0
+                    this.attention(5, "hard").then(() => {
+                        if (options.autostop)
+                            this.stop()
+                    })
                 }
             }
             this.update()
@@ -176,8 +192,18 @@ class AnalogClock {
             if (options.fraction !== undefined)
                 this.ending = Math.ceil(this.ending / (5 * 60)) * (5 * 60)
             this.ended     = false
-            this.flashing  = this.ending - ((this.ending - this.started) * 0.10)
             this.flashed   = false
+            this.left = {
+                5: { time: (this.ending - this.started) > 5 * 60 ? this.ending - 5 * 60 : 0, done: false },
+                4: { time: (this.ending - this.started) > 4 * 60 ? this.ending - 4 * 60 : 0, done: false },
+                3: { time: (this.ending - this.started) > 3 * 60 ? this.ending - 3 * 60 : 0, done: false },
+                2: { time: (this.ending - this.started) > 2 * 60 ? this.ending - 2 * 60 : 0, done: false },
+                1: { time: (this.ending - this.started) > 1 * 60 ? this.ending - 1 * 60 : 0, done: false }
+            }
+            this.at = {
+                33: { time: this.started + ((this.ending - this.started) / 3), done: false },
+                66: { time: this.ending  - ((this.ending - this.started) / 3), done: false }
+            }
             this.segFrom   = (this.started / 60) % 60
             this.segNow    = this.segFrom
             this.segTo     = (this.ending / 60) % 60
@@ -185,8 +211,6 @@ class AnalogClock {
         else if (duration === 0) {
             this.ending   = 0
             this.ended    = true
-            this.flashing = 0
-            this.flashed  = true
         }
     }
     attention (level = 1, type = "soft") {
