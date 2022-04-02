@@ -29,7 +29,7 @@ class AnalogClock {
         this.props = {
             width:       500,
             height:      500,
-            opacity:     0.8,
+            opacity:     1.0,
             background1: "#555555",
             background2: "#f0f0f0",
             background3: "#ffcc66",
