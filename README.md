@@ -26,9 +26,6 @@ Installation
 3. Download all dependencies:<br/>
    `$ npm install`
 
-Usage
------
-
 4. Add your *Browser Source* source to *OBS Studio*:
 
    - Local File: **(disabled)**
@@ -96,7 +93,7 @@ For interactively controlling **AnalogClock** press:
   <kbd>d</kbd> <kbd>*N*</kbd> <kbd>*M*</kbd> (*N* = `0` ... `5`, *M* = `0` ... `9`)
 - until-based timer to (*N* x 10) + *M* minute:<br/>
   <kbd>u</kbd> <kbd>*N*</kbd> <kbd>*M*</kbd> (*N* = `0` ... `5`, *M* = `0` ... `9`)
-- manual attention via clock flashing:<br/>
+- manual attention via *N* times clock flashing:<br/>
   <kbd>a</kbd> <kbd>*N*</kbd> <kbd>s</kbd> (*N* = `1` ... `9`, soft/orange) or<br/>
   <kbd>a</kbd> <kbd>*N*</kbd> <kbd>h</kbd> (*N* = `1` ... `9`, hard/red)
 - termination of timer:<br/>
