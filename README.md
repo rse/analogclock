@@ -83,6 +83,7 @@ time is reached.
 ### Hint Options
 
 - **lang**=*iso-cc* (language as ISO country-code for voice messages, default: `en`)
+- **silent** (whether to avoid any voice messages or sounds, default: none)
 
 Control
 -------

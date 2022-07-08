@@ -39,4 +39,7 @@ analogclock:
     segment2:              "#f4dbc2"
     segment3:              "#2068b0"
     segment4:              "#c2dbf4"
+    autostop:              false
+    silent:                false
+    lang:                  "en"
 

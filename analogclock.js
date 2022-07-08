@@ -43,6 +43,7 @@ class AnalogClock {
             segment2:    "#f4dbc2",
             segment3:    "#2068b0",
             segment4:    "#c2dbf4",
+            silent:      false,
             lang:        "en",
             ...props
         }
@@ -97,8 +98,10 @@ class AnalogClock {
             if (this.ending > 0) {
                 for (const p of [ 33, 66 ]) {
                     if (this.at[p] && !this.at[p].done && moment().isSameOrAfter(moment.unix(this.at[p].time))) {
-                        const id = soundvm.play(`time-at-${p}p-${this.props.lang}`)
-                        await new Promise((resolve) => soundvm.once("play", resolve, id))
+                        if (!this.props.silent) {
+                            const id = soundvm.play(`time-at-${p}p-${this.props.lang}`)
+                            await new Promise((resolve) => soundvm.once("play", resolve, id))
+                        }
                         this.at[p].done = true
                         break
                     }
@@ -106,22 +109,27 @@ class AnalogClock {
                 for (const i of [ 5, 4, 3, 2, 1 ]) {
                     if (this.left[i] && this.left[i].time > 0 && !this.left[i].done &&
                         moment().isSameOrAfter(moment.unix(this.left[i].time))) {
-                        const id = soundvm.play(`time-left-${i}m-${this.props.lang}`)
-                        await new Promise((resolve) => soundvm.once("play", resolve, id))
+                        if (!this.props.silent) {
+                            const id = soundvm.play(`time-left-${i}m-${this.props.lang}`)
+                            await new Promise((resolve) => soundvm.once("play", resolve, id))
+                        }
                         this.left[i].done = true
                         if (!this.flashed) {
                             this.flashed = true
                             this.attention(5, "soft")
-                            soundfx.play("jingle2")
+                            if (!this.props.silent)
+                                soundfx.play("jingle2")
                         }
                         break
                     }
                 }
                 if (!this.ended && moment().isSameOrAfter(moment.unix(this.ending))) {
                     /*  end timer  */
-                    const id = soundvm.play(`time-left-0m-${this.props.lang}`)
-                    await new Promise((resolve) => soundvm.once("play", resolve, id))
-                    soundfx.play("scale1")
+                    if (!this.props.silent) {
+                        const id = soundvm.play(`time-left-0m-${this.props.lang}`)
+                        await new Promise((resolve) => soundvm.once("play", resolve, id))
+                        soundfx.play("scale1")
+                    }
                     this.ended  = true
                     this.ending = 0
                     this.attention(5, "hard").then(() => {
@@ -136,7 +144,8 @@ class AnalogClock {
         /*  once render timer and fly it in  */
         setTimeout(() => {
             this.update()
-            soundfx.play("slide4")
+            if (!this.props.silent)
+                soundfx.play("slide4")
             anime({
                 targets:   this.elCanvas,
                 duration:  1000,
@@ -154,7 +163,8 @@ class AnalogClock {
     }
     stop () {
         /*  fly timer out and stop updating  */
-        soundfx.play("whoosh2")
+        if (!this.props.silent)
+            soundfx.play("whoosh2")
         return anime({
             targets:   this.elCanvas,
             duration:  1000,
@@ -230,6 +240,8 @@ class AnalogClock {
         }).finished
     }
     hint (type) {
+        if (this.props.silent)
+            return Promise.resolve()
         let id
         if (type === "message")
             id = soundvm.play(`hint-message-${this.props.lang}`)
@@ -335,7 +347,8 @@ class AnalogClock {
         this.svgRefs.p3.untransform().rotate((360 / 60) * S        + (360 / 60) / 1000 * MS, R, R)
 
         if (S === 0 && !this.ticked) {
-            soundfx.play("click5")
+            if (!this.props.silent)
+                soundfx.play("click5")
             this.ticked = true
         }
         else if (S > 0)
