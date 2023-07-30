@@ -92,10 +92,7 @@ class AnalogClock {
         $("body").append(this.el)
 
         /*  override background color  */
-        let bg = this.props.background0
-        if (bg.match(/^(?:(?:[0-9a-fA-F]{3,4}){1,2})$/))
-            bg = `#${bg}`
-        $("body").css("background-color", bg)
+        $("body").css("background-color", this.props.background0)
     }
     start (options = {}) {
         /*   allow restarting the interval timer  */
