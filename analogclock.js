@@ -228,6 +228,14 @@ class AnalogClock {
             this.ending   = 0
             this.ended    = true
         }
+
+        /*  clear existing segments  */
+        if (this.svgRefs.segment1) this.svgRefs.segment1.clear()
+        if (this.svgRefs.segment2) this.svgRefs.segment2.clear()
+        if (this.svgRefs.segment3) this.svgRefs.segment3.clear()
+        if (this.svgRefs.segment4) this.svgRefs.segment4.clear()
+        if (this.svgRefs.segment5) this.svgRefs.segment5.clear()
+        if (this.svgRefs.segment6) this.svgRefs.segment6.clear()
     }
     attention (level = 1, type = "soft") {
         /*  fly timer out and stop updating  */
