@@ -406,6 +406,8 @@ class AnalogClock {
             this.svgRefs.segment2.clear()
             this.svgRefs.segment3.clear()
             this.svgRefs.segment4.clear()
+            this.svgRefs.segment5.clear()
+            this.svgRefs.segment6.clear()
         }
     }
 }
