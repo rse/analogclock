@@ -192,23 +192,23 @@ class AnalogClock {
     }
     timer (options) {
         /*  determine duration  */
-        let duration = -1
+        this.duration = 0
         if (options.duration !== undefined) {
-            duration = moment.duration(parseInt(options.duration), "m").asSeconds()
-            if (duration > (60 * 60))
-                duration = (60 * 60)
+            this.duration = moment.duration(parseInt(options.duration), "m").asSeconds()
+            if (this.duration > (60 * 60))
+                this.duration = (60 * 60)
         }
         else if (options.until !== undefined) {
-            duration = moment.duration(moment(options.until).diff(moment())).asSeconds()
-            if (duration < 0)
-                duration = 1
+            this.duration = moment.duration(moment(options.until).diff(moment())).asSeconds()
+            if (this.duration < 0)
+                this.duration = 1
         }
 
         /*  determine the duration-related information  */
-        if (duration > 0) {
+        if (this.duration > 0) {
             const now = moment().unix()
             this.started   = now
-            this.ending    = now + duration
+            this.ending    = now + this.duration
             if (options.fraction !== undefined)
                 this.ending = Math.ceil(this.ending / (5 * 60)) * (5 * 60)
             this.ended     = false
@@ -228,7 +228,7 @@ class AnalogClock {
             this.segNow    = this.segFrom
             this.segTo     = (this.ending / 60) % 60
         }
-        else if (duration === 0) {
+        else if (this.duration === 0) {
             this.ending   = 0
             this.ended    = true
         }
