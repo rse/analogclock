@@ -23,9 +23,9 @@
 ##
 
 analogclock:
-    width:                 500
-    height:                500
+    size:                  500
     opacity:               1.0
+    background0:           "transparent"
     background1:           "#555555"
     background2:           "#f0f0f0"
     background3:           "#ffc000"
@@ -39,7 +39,10 @@ analogclock:
     segment2:              "#f4dbc2"
     segment3:              "#2068b0"
     segment4:              "#c2dbf4"
+    segment5:              "#c03000"
+    segment6:              "#ff6030"
     autostop:              false
+    overrun:               false
     silent:                false
     lang:                  "en"
 
