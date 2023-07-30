@@ -60,8 +60,7 @@ time is reached.
 
 ### Size Options
 
-- **width**=*pixels* (width of clock in pixels, default: `500`)
-- **height**=*pixels* (height of clock in pixels, default: `500`)
+- **size**=*pixels* (width/height of clock in pixels, default: `500`)
 - **opacity**=*number* (amount of opacity of clock in 0.0-1.0 range, default: `1.0`)
 
 ### Color Options
