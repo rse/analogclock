@@ -263,12 +263,12 @@ class AnalogClock {
         return new Promise((resolve) => soundvm.once("play", resolve, id))
     }
     update () {
+        const W = 500
+        const H = 500
         if (this.svg2 === null) {
             /*  initially render overlay  */
             const el = this.elSVG2
-            const W = el.clientWidth
-            const H = el.clientHeight
-            const svg = SVG().addTo(el).size(W, H)
+            const svg = SVG().addTo(el).viewbox(0, 0, W, H)
             this.svg2 = svg
             const R = Math.ceil(W / 2)
             svg.circle(R * 2).move(0, 0).fill(this.props.background3)
@@ -276,9 +276,7 @@ class AnalogClock {
         if (this.svg3 === null) {
             /*  initially render overlay  */
             const el = this.elSVG3
-            const W = el.clientWidth
-            const H = el.clientHeight
-            const svg = SVG().addTo(el).size(W, H)
+            const svg = SVG().addTo(el).viewbox(0, 0, W, H)
             this.svg3 = svg
             const R = Math.ceil(W / 2)
             svg.circle(R * 2).move(0, 0).fill(this.props.background4)
@@ -286,9 +284,7 @@ class AnalogClock {
         if (this.svg === null) {
             /*  initially render clock  */
             const el = this.elSVG1
-            const W = el.clientWidth
-            const H = el.clientHeight
-            const svg = SVG().addTo(el).size(W, H)
+            const svg = SVG().addTo(el).viewbox(0, 0, W, H)
             this.svg = svg
             const R = Math.ceil(W / 2)
 
@@ -346,16 +342,15 @@ class AnalogClock {
 
         /*  update clock pointers  */
         const el = this.elSVG1
-        const W = el.clientWidth
         const R = Math.ceil(W / 2)
         const now = moment()
-        const H  = now.hours()
+        const HH = now.hours()
         const M  = now.minutes()
         const S  = now.seconds()
         const MS = now.milliseconds()
-        this.svgRefs.p1.untransform().rotate((360 / 12) * (H % 12) + (360 / 12) / 60   * M,  R, R)
-        this.svgRefs.p2.untransform().rotate((360 / 60) * M        + (360 / 60) / 60   * S,  R, R)
-        this.svgRefs.p3.untransform().rotate((360 / 60) * S        + (360 / 60) / 1000 * MS, R, R)
+        this.svgRefs.p1.untransform().rotate((360 / 12) * (HH % 12) + (360 / 12) / 60   * M,  R, R)
+        this.svgRefs.p2.untransform().rotate((360 / 60) * M         + (360 / 60) / 60   * S,  R, R)
+        this.svgRefs.p3.untransform().rotate((360 / 60) * S         + (360 / 60) / 1000 * MS, R, R)
 
         if (S === 0 && !this.ticked) {
             if (!this.props.silent)
