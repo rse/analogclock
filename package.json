@@ -7,7 +7,7 @@
     "keywords":                    [ "analog", "clock", "obs", "studio", "vmix" ],
     "repository": {
         "type":                    "git",
-        "url":                     "https://github.com/rse/analogclock.git"
+        "url":                     "git+https://github.com/rse/analogclock.git"
     },
     "author": {
         "name":                    "Dr. Ralf S. Engelschall",
