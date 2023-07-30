@@ -19,13 +19,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build
-        run: npm install --omit=dev
   deploy:
-    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -33,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Build
+        run:  npm install --omit=dev
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
