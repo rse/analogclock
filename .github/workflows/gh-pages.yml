@@ -2,7 +2,7 @@
 ##  gh-pages.yml -- Github Action for Github Pages Deployment
 ##
 
-name: deploy to Github Pages
+name: Deploy to Github Pages
 
 on:
   push:
