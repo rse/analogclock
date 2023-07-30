@@ -79,10 +79,13 @@ time is reached.
 - **segment2**=*color* (inner color of done segment display, default: `#f4dbc2`)
 - **segment3**=*color* (outer color of todo segment display, default: `#2068b0`)
 - **segment4**=*color* (inner color of todo segment display, default: `#c2dbf4`)
+- **segment5**=*color* (outer color of overrun segment display, default: `#c03000`)
+- **segment6**=*color* (inner color of overrun segment display, default: `#ff6030`)
 
 ### Hint Options
 
 - **lang**=*iso-cc* (language as ISO country-code for voice messages, default: `en`)
+- **overrun** (whether to draw overrun segment, default: none)
 - **silent** (whether to avoid any voice messages or sounds, default: none)
 
 Control

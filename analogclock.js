@@ -43,6 +43,9 @@ class AnalogClock {
             segment2:    "#f4dbc2",
             segment3:    "#2068b0",
             segment4:    "#c2dbf4",
+            segment5:    "#c03000",
+            segment6:    "#ff6030",
+            overrun:     false,
             silent:      false,
             lang:        "en",
             ...props
@@ -290,6 +293,8 @@ class AnalogClock {
             this.svgRefs.segment2 = svg.group()
             this.svgRefs.segment3 = svg.group()
             this.svgRefs.segment4 = svg.group()
+            this.svgRefs.segment5 = svg.group()
+            this.svgRefs.segment6 = svg.group()
             svg.circle(40).move(R - 20, R - 20).fill(this.props.background1)
 
             /*  create tick lines  */
@@ -354,32 +359,42 @@ class AnalogClock {
         else if (S > 0)
             this.ticked = false
 
-        /*  redraw clock segment  */
+        /*  redraw clock segments  */
+        const makeSegment = (seg, rad1, rad2, max, b, col) => {
+            const x1 = R + Math.cos(rad1) * (R - b)
+            const y1 = R - Math.sin(rad1) * (R - b)
+            const x2 = R + Math.cos(rad2) * (R - b)
+            const y2 = R - Math.sin(rad2) * (R - b)
+            seg.clear()
+            seg.path().M(R, R).L(x1, y1).A(R - b, R - b, 0, max, 1, { x: x2, y: y2 }).Z().fill(col)
+        }
+        const b = 10
+        this.segNow = M + (1 / 60) * S
+        const deg1 = (360 / 60) * this.segFrom
+        const deg2 = (360 / 60) * this.segNow
+        const deg3 = (360 / 60) * this.segTo
+        const rad1 = SVG.utils.radians(90 - deg1)
+        const rad2 = SVG.utils.radians(90 - deg2)
+        const rad3 = SVG.utils.radians(90 - deg3)
         if (this.segFrom && !this.ended) {
-            this.segNow = M + (1 / 60) * S
-            const deg1 = (360 / 60) * this.segFrom
-            const deg2 = (360 / 60) * this.segNow
-            const deg3 = (360 / 60) * this.segTo
-            const rad1 = SVG.utils.radians(90 - deg1)
-            const rad2 = SVG.utils.radians(90 - deg2)
-            const rad3 = SVG.utils.radians(90 - deg3)
             const max12 = deg2 > deg1 ? (deg2 - deg1 > 180 ? 1 : 0) : (deg1 - deg2 > 180 ? 0 : 1)
             const max23 = deg3 > deg2 ? (deg3 - deg2 > 180 ? 1 : 0) : (deg2 - deg3 > 180 ? 0 : 1)
-            const makeSegment = (seg, rad1, rad2, max, b, col) => {
-                const x1 = R + Math.cos(rad1) * (R - b)
-                const y1 = R - Math.sin(rad1) * (R - b)
-                const x2 = R + Math.cos(rad2) * (R - b)
-                const y2 = R - Math.sin(rad2) * (R - b)
-                seg.clear()
-                seg.path().M(R, R).L(x1, y1).A(R - b, R - b, 0, max, 1, { x: x2, y: y2 }).Z().fill(col)
-            }
-            const b = 10
             makeSegment(this.svgRefs.segment1, rad1, rad2, max12, 0, this.props.segment1)
             makeSegment(this.svgRefs.segment2, rad1, rad2, max12, b, this.props.segment2)
             makeSegment(this.svgRefs.segment3, rad2, rad3, max23, 0, this.props.segment3)
             makeSegment(this.svgRefs.segment4, rad2, rad3, max23, b, this.props.segment4)
         }
-        else if (this.segFrom && this.ended) {
+        else if (this.segFrom && this.ended && this.props.overrun) {
+            const max13 = deg3 > deg1 ? (deg3 - deg1 > 180 ? 1 : 0) : (deg1 - deg3 > 180 ? 0 : 1)
+            const max32 = deg2 > deg3 ? (deg2 - deg3 > 180 ? 1 : 0) : (deg3 - deg2 > 180 ? 0 : 1)
+            this.svgRefs.segment3.clear()
+            this.svgRefs.segment4.clear()
+            makeSegment(this.svgRefs.segment1, rad1, rad3, max13, 0, this.props.segment1)
+            makeSegment(this.svgRefs.segment2, rad1, rad3, max13, b, this.props.segment2)
+            makeSegment(this.svgRefs.segment5, rad3, rad2, max32, 0, this.props.segment5)
+            makeSegment(this.svgRefs.segment6, rad3, rad2, max32, b, this.props.segment6)
+        }
+        else if (this.segFrom && this.ended && !this.props.overrun) {
             this.svgRefs.segment1.clear()
             this.svgRefs.segment2.clear()
             this.svgRefs.segment3.clear()
