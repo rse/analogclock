@@ -27,8 +27,7 @@ class AnalogClock {
     constructor (props = {}) {
         /*  take over properties  */
         this.props = {
-            width:       500,
-            height:      500,
+            size:        500,
             opacity:     1.0,
             background0: "transparent",
             background1: "#555555",
@@ -81,8 +80,8 @@ class AnalogClock {
             </div>
         `)
         $(this.el)
-            .css("width",  `${this.props.width}px`)
-            .css("height", `${this.props.height}px`)
+            .css("width",  `${this.props.size}px`)
+            .css("height", `${this.props.size}px`)
             .css("opacity", this.props.opacity)
         this.elCanvas = $(".canvas",       this.el).get(0)
         this.elSVG1   = $(".canvas .svg1", this.el).get(0)
