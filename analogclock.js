@@ -391,7 +391,7 @@ class AnalogClock {
             makeSegment(this.svgRefs.segment3, rad2, rad3, max23, 0, this.props.segment3)
             makeSegment(this.svgRefs.segment4, rad2, rad3, max23, b, this.props.segment4)
         }
-        else if (this.segFrom && this.ended && this.props.overrun) {
+        else if (this.segFrom && this.ended && this.props.overrun && this.duration > 0) {
             const max13 = deg3 > deg1 ? (deg3 - deg1 > 180 ? 1 : 0) : (deg1 - deg3 > 180 ? 0 : 1)
             const max32 = deg2 > deg3 ? (deg2 - deg3 > 180 ? 1 : 0) : (deg3 - deg2 > 180 ? 0 : 1)
             this.svgRefs.segment3.clear()
@@ -401,7 +401,7 @@ class AnalogClock {
             makeSegment(this.svgRefs.segment5, rad3, rad2, max32, 0, this.props.segment5)
             makeSegment(this.svgRefs.segment6, rad3, rad2, max32, b, this.props.segment6)
         }
-        else if (this.segFrom && this.ended && !this.props.overrun) {
+        else if (this.segFrom && this.ended && !(this.props.overrun && this.duration > 0)) {
             this.svgRefs.segment1.clear()
             this.svgRefs.segment2.clear()
             this.svgRefs.segment3.clear()
