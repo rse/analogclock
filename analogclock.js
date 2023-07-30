@@ -30,6 +30,7 @@ class AnalogClock {
             width:       500,
             height:      500,
             opacity:     1.0,
+            background0: "transparent",
             background1: "#555555",
             background2: "#f0f0f0",
             background3: "#ffcc66",
@@ -90,6 +91,12 @@ class AnalogClock {
 
         /*  inject DOM fragment into DOM tree  */
         $("body").append(this.el)
+
+        /*  override background color  */
+        let bg = this.props.background0
+        if (bg.match(/^(?:(?:[0-9a-fA-F]{3,4}){1,2})$/))
+            bg = `#${bg}`
+        $("body").css("background-color", bg)
     }
     start (options = {}) {
         /*   allow restarting the interval timer  */

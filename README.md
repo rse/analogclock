@@ -66,6 +66,7 @@ time is reached.
 
 ### Color Options
 
+- **background0**=*color* (canvas background color, default: `transparent`)
 - **background1**=*color* (outer border color, default: `#555555`)
 - **background2**=*color* (inner background color, default: `#f0f0f0`)
 - **background3**=*color* (soft attention overlay color, default: `#ffcc66`)
