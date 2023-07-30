@@ -14,8 +14,35 @@ a count-down until an event starts or as a duration for a pause.
 
 ![AnalogClock screenshot](screenshot.png)
 
-Installation
-------------
+Demo
+----
+
+A centrally deployed version of **AnalogClock** is available under
+the URL https://rse.github.io/analogclock/.
+
+Remote Use
+----------
+
+1. Add your *Browser Source* source to *OBS Studio*:
+
+   - Local File: **(disabled)**
+   - URL: `https://rse.github.io/analogclock/?`*options*
+   - Width: **1920** (or whatever is your stream resolution width)
+   - Height: **1080** (or whatever is your stream resolution height)
+   - Use custom frame rate: **(disabled)**
+   - Control audio via OBS: **(disabled)**
+   - Custom CSS: **(empty)**
+   - Shutdown source when not visible: **(enabled)**
+   - Refresh browser when scene becomes active: **(enabled)**
+
+   Or add your *Web Browser* input to *vMix*:
+
+   - URL: `https://rse.github.io/analogclock/?`*options*
+   - Width: **1920** (or whatever is your stream resolution width)
+   - Height: **1080** (or whatever is your stream resolution height)
+
+Local Use
+---------
 
 1. Install [Node.js](https://nodejs.org/) and [Git](https://git-scm.com/).
 
