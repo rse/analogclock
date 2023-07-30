@@ -61,8 +61,19 @@
                 /*  determine properties  */
                 const props = {}
                 const params = (new URL(document.location)).searchParams
-                for (const [ key, val ] of params)
+                for (let [ key, val ] of params) {
+                    if (typeof val === "string") {
+                        if (val === "")
+                            val = true
+                        else if (val.match(/^(?:true|false)$/))
+                            val = (val === "true")
+                        else if (val.match(/^\d+$/))
+                            val = parseInt(val)
+                        else if (val.match(/^\d+\.\d+$/))
+                            val = parseFloat(val)
+                    }
                     props[key] = val
+                }
 
                 /*  initialize and start clock  */
                 const ac = new AnalogClock(props)
