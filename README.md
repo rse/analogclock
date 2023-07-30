@@ -124,11 +124,11 @@ For interactively controlling **AnalogClock** press:
   <kbd>d</kbd> <kbd>*N*</kbd> <kbd>*M*</kbd> (*N* = `0` ... `5`, *M* = `0` ... `9`)
 - until-based timer to (*N* x 10) + *M* minute:<br/>
   <kbd>u</kbd> <kbd>*N*</kbd> <kbd>*M*</kbd> (*N* = `0` ... `5`, *M* = `0` ... `9`)
+- termination of timer:<br/>
+  <kbd>x</kbd>
 - manual attention via *N* times clock flashing:<br/>
   <kbd>a</kbd> <kbd>*N*</kbd> <kbd>s</kbd> (*N* = `1` ... `9`, soft/orange) or<br/>
   <kbd>a</kbd> <kbd>*N*</kbd> <kbd>h</kbd> (*N* = `1` ... `9`, hard/red)
-- termination of timer:<br/>
-  <kbd>x</kbd>
 - manual voice hints:<br/>
   <kbd>h</kbd> <kbd>s</kbd> (slower)<br/>
   <kbd>h</kbd> <kbd>f</kbd> (faster)<br/>
