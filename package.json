@@ -18,7 +18,7 @@
     "homepage":                    "https://github.com/rse/analogclock",
     "bugs":                        "https://github.com/rse/analogclock/issues",
     "dependencies": {
-        "jquery":                  "3.7.0",
+        "jquery":                  "3.7.1",
         "animejs":                 "3.2.1",
         "@svgdotjs/svg.js":        "3.2.0",
         "svg.path.js":             "github:otm/svg.path.js#6981166",
