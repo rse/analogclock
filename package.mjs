@@ -16,8 +16,10 @@ await $`cp -rp node_modules/typopro-web/web/TypoPRO-SourceSansPro/* ${dst}/`
 await $`cp -p node_modules/jquery/dist/jquery.min.js ${dst}/`
 await $`cp -p node_modules/animejs/lib/anime.min.js ${dst}/`
 await $`cp -p node_modules/@svgdotjs/svg.js/dist/svg.min.js ${dst}/`
+await $`cp -p node_modules/@svgdotjs/svg.js/dist/svg.min.js.map ${dst}/`
 await $`cp -p node_modules/svg.path.js/svg.path.js ${dst}/`
 await $`cp -p node_modules/moment/min/moment.min.js ${dst}/`
+await $`cp -p node_modules/moment/min/moment.min.js.map ${dst}/`
 await $`cp -p node_modules/mousetrap/mousetrap.min.js ${dst}/`
 await $`cp -p node_modules/howler/dist/howler.min.js ${dst}/`
 await $`cp -p node_modules/@rse/soundfx/soundfx.{browser.js,data*} ${dst}/`
