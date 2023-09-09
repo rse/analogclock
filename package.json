@@ -30,9 +30,11 @@
         "@rse/soundvm":            "0.9.1"
     },
     "optionalDependencies": {
-        "huds":                    "2.0.8"
+        "huds":                    "2.0.8",
+        "zx":                      "7.2.3"
     },
     "scripts": {
-        "start":                   "huds -a 0.0.0.0 -p 9999 -d analogclock:index-huds.html,index-huds.yaml"
+        "start":                   "huds -a 0.0.0.0 -p 9999 -d analogclock:index-huds.html,index-huds.yaml",
+        "prepublishOnly":          "npx zx package.mjs"
     }
 }
