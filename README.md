@@ -87,7 +87,7 @@ time is reached.
 
 ### Size Options
 
-- **size**=*pixels* (width/height of clock in pixels, default: `500`)
+- **size**=*size* (width/height of clock in pixels or percentage, default: `100%`)
 - **opacity**=*number* (amount of opacity of clock in 0.0-1.0 range, default: `1.0`)
 
 ### Color Options
@@ -112,8 +112,9 @@ time is reached.
 ### Hint Options
 
 - **lang**=*iso-cc* (language as ISO country-code for voice messages, default: `en`)
-- **overrun** (whether to draw overrun segment, default: none)
-- **silent** (whether to avoid any voice messages or sounds, default: none)
+- **overrun** (whether to draw overrun segment, default: false)
+- **silent** (whether to avoid any voice messages or sounds, default: false)
+- **moving** (whether to move/fly in clock initially, default: true)
 
 Control
 -------

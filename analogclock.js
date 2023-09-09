@@ -27,7 +27,7 @@ class AnalogClock {
     constructor (props = {}) {
         /*  take over properties  */
         this.props = {
-            size:        500,
+            size:        "100%",
             opacity:     1.0,
             background0: "transparent",
             background1: "#555555",
@@ -47,6 +47,7 @@ class AnalogClock {
             segment6:    "#ff6030",
             overrun:     false,
             silent:      false,
+            moving:      true,
             lang:        "en",
             ...props
         }
@@ -80,8 +81,8 @@ class AnalogClock {
             </div>
         `)
         $(this.el)
-            .css("width",  `${this.props.size}px`)
-            .css("height", `${this.props.size}px`)
+            .css("width",  this.props.size)
+            .css("height", this.props.size)
             .css("opacity", this.props.opacity)
         this.elCanvas = $(".canvas",       this.el).get(0)
         this.elSVG1   = $(".canvas .svg1", this.el).get(0)
@@ -159,7 +160,7 @@ class AnalogClock {
                 direction: "normal",
                 easing:    "easeOutBounce",
                 delay:     200,
-                bottom:    [ 2000, 0 ],
+                ...(this.props.moving ? { bottom: [ 2000, 0 ] } : {}),
                 opacity:   [ 1.0, 1.0 ]
             })
         }, 0)
