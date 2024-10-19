@@ -36,6 +36,26 @@ body {
     align-items: center;
 }
 
+.analogclock-container {
+}
+
+@media screen and (max-aspect-ratio: 1/1),
+@media screen and (aspect-ratio: 1/1) {
+    .analogclock-container {
+        width: 100vw;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+    .analogclock-container {
+        width: auto;
+        height: 100vh;
+        aspect-ratio: 1/1;
+    }
+}
+
 .analogclock {
 }
 

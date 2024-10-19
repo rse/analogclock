@@ -90,7 +90,7 @@ class AnalogClock {
         this.elSVG3   = $(".canvas .svg3", this.el).get(0)
 
         /*  inject DOM fragment into DOM tree  */
-        $("body").append(this.el)
+        $(".analogclock-container").append(this.el)
 
         /*  override background color  */
         $("body").css("background-color", this.props.background0)
