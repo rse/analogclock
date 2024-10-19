@@ -57,7 +57,6 @@ class AnalogClock {
         this.remaining  = 0
         this.started    = null
         this.show       = false
-        this.interval   = null
         this.ending     = 0
         this.ended      = false
         this.flashed    = false
@@ -69,6 +68,7 @@ class AnalogClock {
         this.svg2       = null
         this.svg3       = null
         this.svgRefs    = {}
+        this.stopping   = false
 
         /*  create DOM fragment  */
         this.el = $(`
@@ -96,12 +96,11 @@ class AnalogClock {
         $("body").css("background-color", this.props.background0)
     }
     start (options = {}) {
-        /*   allow restarting the interval timer  */
-        if (this.interval)
-            clearTimeout(this.interval)
-
         /*  setup an update interval  */
-        this.interval = setInterval(async () => {
+        this.stopping = false
+        const cb = async () => {
+            if (this.stopping)
+                return
             if (this.ending > 0) {
                 for (const p of [ 33, 66 ]) {
                     if (this.at[p] && !this.at[p].done && moment().isSameOrAfter(moment.unix(this.at[p].time))) {
@@ -146,7 +145,9 @@ class AnalogClock {
                 }
             }
             this.update()
-        }, 50)
+            requestAnimationFrame(cb)
+        }
+        requestAnimationFrame(cb)
 
         /*  once render timer and fly it in  */
         setTimeout(() => {
@@ -181,10 +182,7 @@ class AnalogClock {
             delay:     0,
             opacity:   [ 1.0, 0.0 ]
         }).finished.then(() => {
-            if (this.interval) {
-                clearTimeout(this.interval)
-                this.interval = null
-            }
+            this.stopping = true
         })
     }
     timer (options) {
