@@ -81,8 +81,8 @@ class AnalogClock {
             </div>
         `)
         $(this.el)
-            .css("width",  this.props.size)
-            .css("height", this.props.size)
+            .css("width",   this.props.size)
+            .css("height",  this.props.size)
             .css("opacity", this.props.opacity)
         this.elCanvas = $(".canvas",       this.el).get(0)
         this.elSVG1   = $(".canvas .svg1", this.el).get(0)
