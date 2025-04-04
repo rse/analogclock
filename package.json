@@ -19,7 +19,7 @@
     "bugs":                        "https://github.com/rse/analogclock/issues",
     "dependencies": {
         "jquery":                  "3.7.1",
-        "animejs":                 "3.2.2",
+        "animejs":                 "4.0.0",
         "@svgdotjs/svg.js":        "3.2.4",
         "svg.path.js":             "github:otm/svg.path.js#6981166",
         "moment":                  "2.30.1",
@@ -30,11 +30,13 @@
         "@rse/soundvm":            "0.9.1"
     },
     "optionalDependencies": {
-        "huds":                    "2.1.9",
-        "zx":                      "8.1.9"
+        "huds":                    "2.1.10",
+        "serve":                   "14.2.4",
+        "zx":                      "8.5.0"
     },
     "scripts": {
-        "start":                   "huds -a 0.0.0.0 -p 9999 -d analogclock:index-huds.html,index-huds.yaml",
+        "start":                   "huds -a 0.0.0.0 -p 9991 -d analogclock:index-huds.html,index-huds.yaml",
+        "start2":                  "serve -l 9991 .",
         "prepublishOnly":          "npx zx package.mjs"
     }
 }

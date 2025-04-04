@@ -154,12 +154,10 @@ class AnalogClock {
             this.update()
             if (!this.props.silent)
                 soundfx.play("slide4")
-            anime({
-                targets:   this.elCanvas,
+            anime.animate(this.elCanvas, {
                 duration:  1000,
                 autoplay:  true,
-                direction: "normal",
-                easing:    "easeOutBounce",
+                ease:      "outBounce",
                 delay:     200,
                 ...(this.props.moving ? { bottom: [ 2000, 0 ] } : {}),
                 opacity:   [ 1.0, 1.0 ]
@@ -173,12 +171,10 @@ class AnalogClock {
         /*  fly timer out and stop updating  */
         if (!this.props.silent)
             soundfx.play("whoosh2")
-        return anime({
-            targets:   this.elCanvas,
+        return anime.animate(this.elCanvas, {
             duration:  1000,
             autoplay:  true,
-            direction: "normal",
-            easing:    "easeOutSine",
+            ease:      "outSine",
             delay:     0,
             opacity:   [ 1.0, 0.0 ]
         }).finished.then(() => {
@@ -242,12 +238,10 @@ class AnalogClock {
         for (let i = 0; i < level; i++)
             opacity = opacity.concat([ 0.0, 0.5 ])
         opacity = opacity.concat([ 0.0 ])
-        return anime({
-            targets:   type === "soft" ? this.elSVG2 : this.elSVG3,
+        return anime.animate(type === "soft" ? this.elSVG2 : this.elSVG3, {
             duration:  level * 1000,
             autoplay:  true,
-            direction: "normal",
-            easing:    "easeInOutSine",
+            ease:      "inOutSine",
             delay:     0,
             opacity
         }).finished
